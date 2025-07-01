@@ -1,10 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dggbudueceljn"]
+[gd_scene load_steps=7 format=3 uid="uid://dggbudueceljn"]
 
 [ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Main.cs" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platform.tscn" id="3_8gbba"]
 
-[node name="Main" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]
+size = Vector2(532, 39)
+
+[sub_resource type="Curve2D" id="Curve2D_8gbba"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 474, 16, 0, 0, 0, 0, 0, 14)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
+size = Vector2(490, 15)
+
+[node name="Main" type="Node" groups=["platforms"]]
 script = ExtResource("1_bo1nx")
 PlatformScene = ExtResource("3_8gbba")
 
@@ -19,6 +31,8 @@ color = Color(0.815686, 0.760784, 0.509804, 1)
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
+position = Vector2(334, 665)
+collision_mask = 7
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(228, 644)
@@ -26,43 +40,82 @@ position = Vector2(228, 644)
 [node name="Platforms" type="Node" parent="."]
 
 [node name="Platform" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(157, 627)
+position = Vector2(354, 219)
+collision_layer = 2
 
 [node name="Platform7" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(322, 584)
+collision_layer = 2
 
 [node name="Platform8" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(191, 461)
+collision_layer = 2
 
 [node name="Platform9" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(347, 482)
+collision_layer = 2
 
 [node name="Platform10" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(43, 514)
+collision_layer = 2
 
 [node name="Platform11" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(98, 373)
+position = Vector2(96, 405)
+collision_layer = 2
 
 [node name="Platform12" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(330, 294)
+position = Vector2(94, 177)
+collision_layer = 2
 
 [node name="Platform13" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(153, 218)
+position = Vector2(161, 618)
+collision_layer = 2
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(24, 700)
+collision_layer = 2
 
 [node name="Platform3" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(116, 700)
+collision_layer = 2
 
 [node name="Platform4" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(212, 700)
+collision_layer = 2
 
 [node name="Platform5" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(317, 700)
+collision_layer = 2
 
 [node name="Platform6" parent="Platforms" instance=ExtResource("3_8gbba")]
 position = Vector2(414, 700)
+collision_layer = 2
 
-[node name="MidPoint" type="Marker2D" parent="."]
-position = Vector2(240, 360)
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(243, 403)
+shape = SubResource("RectangleShape2D_8gbba")
+
+[node name="PlatformPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_8gbba")
+
+[node name="PlatformSpawnLocation" type="PathFollow2D" parent="PlatformPath"]
+position = Vector2(0, 14)
+rotation = 0.00421938
+
+[node name="PlatformTimer" type="Timer" parent="."]
+wait_time = 0.167
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(244, 371)
+shape = SubResource("RectangleShape2D_jjvhh")
+debug_color = Color(0.878495, 0.21234, 0.664021, 0.42)
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2dBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="OnArea2dBodyExited"]
+[connection signal="timeout" from="PlatformTimer" to="." method="OnPlatformTimerTimeout"]
