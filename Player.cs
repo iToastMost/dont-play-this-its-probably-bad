@@ -3,13 +3,26 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+	[Signal]
+	public delegate void FallEventHandler();
+
+	[Signal]
+	public delegate void StopFallEventHandler();
+
+	[Signal]
+	public delegate void GameOverEventHandler();
+
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -450.0f;
 	public Vector2 ScreenSize;
+	private bool platformsFall;
+	private bool platformsStops;
 
     public override void _Ready()
     {
 		ScreenSize = GetViewportRect().Size;
+		platformsFall = false;
+		platformsStops = true;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -44,12 +57,41 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 
 		Position = new Vector2(
-			x: Mathf.Clamp(Position.X, 0, ScreenSize.X), 
-			y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y));
+			x: Mathf.Wrap(Position.X, 0, ScreenSize.X),
+			y: Mathf.Clamp(Position.Y, 0, 730));
+
+		if(Position.Y < 400 && velocity.Y <= 0 && platformsFall == false)
+		{
+			platformsFall = true;
+			platformsStops = false;
+			EmitSignal(SignalName.Fall);
+			GD.Print("Platforms falling");
+		}
+
+		if(velocity.Y > 0 && platformsStops == false)
+		{
+			platformsFall = false;
+			platformsStops = true;
+			EmitSignal(SignalName.StopFall);
+			GD.Print("Platforms stop falling");
+		}
+
+		if(Position.Y > 720)
+		{
+			Die();
+		}
 	}
 
 	public void Start(Vector2 position)
 	{
 		Position = position;
+		Show();
+	}
+
+	private void Die()
+	{
+		EmitSignal(SignalName.GameOver);
+		Hide();
+		GD.Print("You died!");
 	}
 }

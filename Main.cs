@@ -18,6 +18,7 @@ public partial class Main : Node
     {
         NewGame();
         var playerPosition = GetNode<Player>("Player").Position;
+        SpawnPlatform();
         platforms = PlatformScene;
     }
     public void NewGame()
@@ -25,26 +26,38 @@ public partial class Main : Node
         var player = GetNode<Player>("Player");
         var startPosition = GetNode<Marker2D>("StartPosition");
         player.Start(startPosition.Position);
+        var hud = GetNode<Hud>("HUD");
+        hud.HideHud();
     }
 
-    private void OnArea2dBodyEntered(Node2D body)
+    private void GameOver()
+    {
+        var hud = GetNode<Hud>("HUD");
+        hud.ShowGameOver();
+    }
+
+    private void OnSpawnTriggerBodyEntered(Node2D body)
+    {
+        SpawnPlatform();
+    }
+
+    private void PlatformFall()
     {
         EmitSignal(SignalName.Fall);
         GetTree().CallGroup("platforms", "Fall");
         GetNode<Timer>("PlatformTimer").Start();
-        GD.Print("Entered");
+        GD.Print("Falling from main");
     }
 
-    private void OnArea2dBodyExited(Node2D body)
+    private void PlatformStop()
     {
         EmitSignal(SignalName.stopFall);
         GetNode<Timer>("PlatformTimer").Stop();
         GetTree().CallGroup("platforms", "StopFall");
-        GD.Print("Exited");
+        GD.Print("Stopping fall from main");
     }
 
-    private void OnPlatformTimerTimeout()
-    {
+    private void SpawnPlatform() {
         Platform platform = PlatformScene.Instantiate<Platform>();
 
         var platformSpawnLocation = GetNode<PathFollow2D>("PlatformPath/PlatformSpawnLocation");

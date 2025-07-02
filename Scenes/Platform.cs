@@ -3,7 +3,7 @@ using System;
 
 public partial class Platform : CharacterBody2D
 {
-    public const float fallVelocity = 350.0f;
+    public const float fallVelocity = 325.0f;
 
     private bool hasEntered;
 
