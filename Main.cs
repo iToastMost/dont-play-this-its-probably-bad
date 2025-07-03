@@ -3,23 +3,41 @@ using System;
 
 public partial class Main : Node
 {
-    [Signal]
-    public delegate void FallEventHandler();
-
-    [Signal]
-    public delegate void stopFallEventHandler();
-
     [Export]
     public PackedScene PlatformScene { get; set; }
 
+    [Export]
+    public PackedScene EasyScene { get; set; }
+
     PackedScene platforms;
+
+    private float _nextLevelY = -720;
+    private Easy levelToGo;
+    private Easy previousLevel;
+    private Easy currentLevel;
+
+    Player player;
+
+    private float _topHeightReached = 0f;
+    private float _score = 0f;
+
+    public override void _Process(double delta)
+    {
+        if (player.Position.Y < _topHeightReached)
+        {
+            _topHeightReached = player.GlobalPosition.Y;
+            _score = Mathf.Floor(-_topHeightReached);
+            UpdateScore(_score);
+        }
+    }
 
     public override void _Ready()
     {
         NewGame();
+        player = GetNode<Player>("Player");
         var playerPosition = GetNode<Player>("Player").Position;
-        SpawnPlatform();
         platforms = PlatformScene;
+        SpawnLevel();
     }
     public void NewGame()
     {
@@ -28,48 +46,92 @@ public partial class Main : Node
         player.Start(startPosition.Position);
         var hud = GetNode<Hud>("HUD");
         hud.HideHud();
+        //GetTree().Paused = true;
     }
 
     private void GameOver()
     {
         var hud = GetNode<Hud>("HUD");
         hud.ShowGameOver();
+        //GetTree().Paused = true;
+        
     }
 
-    private void OnSpawnTriggerBodyEntered(Node2D body)
+    private void SpawnLevel()
     {
-        SpawnPlatform();
-    }
+        if(levelToGo != null)
+        {
+            levelToGo.QueueFree();       
+        }
+        
+        Easy easy = EasyScene.Instantiate<Easy>();
+       
+        easy.Position = new Vector2(0, _nextLevelY);
 
-    private void PlatformFall()
+        GD.Print("Level Spawned");
+
+        AddChild(easy);
+
+        SpawnPlatforms(easy);
+
+        if(previousLevel != null)
+        {
+            levelToGo = previousLevel;
+        }
+
+        if(currentLevel != null)
+        {
+            previousLevel = currentLevel;
+        }
+
+        currentLevel = easy;
+
+        var spawnAreaPosition = GetNode<Area2D>("Area2D");
+        spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
+
+
+        player.deathHeight = _nextLevelY + 2000;
+
+        _nextLevelY -= 720;
+
+    }
+    private void SpawnPlatforms(Node parentScene)
     {
-        EmitSignal(SignalName.Fall);
-        GetTree().CallGroup("platforms", "Fall");
-        GetNode<Timer>("PlatformTimer").Start();
-        GD.Print("Falling from main");
+        var children = parentScene.GetNode<Node>("PlatformPaths").GetChildren();
+        for (int i = 0; i < children.Count; i++)
+        {
+            Platform platform = PlatformScene.Instantiate<Platform>();
+
+            var platformSpawnLocation = parentScene.GetNode<PathFollow2D>("PlatformPaths/"+ children[i].Name + "/SpawnPath" + i.ToString());
+            platformSpawnLocation.ProgressRatio = GD.Randf();
+
+            Vector2 spawnPos = platformSpawnLocation.GlobalPosition;
+            spawnPos.Y += _nextLevelY;
+
+            platform.GlobalPosition = spawnPos;
+
+            //GD.Print("Spawning Platform from Easy Scene" + children[i].Name +" at location: " + platform.Position.Y.ToString());
+
+            AddChild(platform);
+        }
     }
 
-    private void PlatformStop()
+    private void OnArea2DBodyEntered(Node2D body)
     {
-        EmitSignal(SignalName.stopFall);
-        GetNode<Timer>("PlatformTimer").Stop();
-        GetTree().CallGroup("platforms", "StopFall");
-        GD.Print("Stopping fall from main");
+        //GD.Print("Moving area2d");
+        CallDeferred(nameof(SpawnLevel));
     }
 
-    private void SpawnPlatform() {
-        Platform platform = PlatformScene.Instantiate<Platform>();
-
-        var platformSpawnLocation = GetNode<PathFollow2D>("PlatformPath/PlatformSpawnLocation");
-        platformSpawnLocation.ProgressRatio = GD.Randf();
-
-        platform.Position = platformSpawnLocation.Position;
-
-        GD.Print("Platform Spawned");
-
-        AddChild(platform);
-
-        platforms = PlatformScene;
+    private void ResetStats()
+    {
+        _nextLevelY = 0;
+        levelToGo = null;
+        previousLevel = null;
+        currentLevel = null;
     }
 
+    private void UpdateScore(float score)
+    {
+        GetNode<Hud>("HUD").UpdateScore(score);
+    }
 }

@@ -1,123 +1,64 @@
-[gd_scene load_steps=8 format=3 uid="uid://dggbudueceljn"]
+[gd_scene load_steps=7 format=3 uid="uid://dggbudueceljn"]
 
 [ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Main.cs" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platform.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://bwtdum4tf20wl" path="res://Scenes/easy.tscn" id="3_kry3j"]
 [ext_resource type="PackedScene" uid="uid://bfohhcfgqpxof" path="res://Scenes/hud.tscn" id="4_jjvhh"]
 
-[sub_resource type="Curve2D" id="Curve2D_8gbba"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 474, 16, 0, 0, 0, 0, 0, 14)
-}
-point_count = 3
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
+size = Vector2(491, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
-size = Vector2(490, 15)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
-size = Vector2(485.5, 14.5)
-
-[node name="Main" type="Node" groups=["platforms"]]
+[node name="Main" type="Node" groups=["levels", "platforms"]]
 script = ExtResource("1_bo1nx")
 PlatformScene = ExtResource("3_8gbba")
+EasyScene = ExtResource("3_kry3j")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 38.0
+offset_top = -720.0
+offset_bottom = -720.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.815686, 0.760784, 0.509804, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_8gbba")]
-position = Vector2(334, 665)
-collision_mask = 7
+position = Vector2(334, -55)
+collision_mask = 255
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_right = 480
+limit_bottom = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 4.07
+drag_vertical_enabled = true
+drag_left_margin = 1.0
+drag_top_margin = 0.1
+drag_right_margin = 1.0
+drag_bottom_margin = 1.0
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(228, 644)
-
-[node name="Platforms" type="Node" parent="."]
-
-[node name="Platform" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(349, 168)
-collision_layer = 2
-
-[node name="Platform15" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(185, 528)
-collision_layer = 2
-
-[node name="Platform14" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(120, 256)
-collision_layer = 2
-
-[node name="Platform7" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(322, 584)
-collision_layer = 2
-
-[node name="Platform8" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(77, 195)
-collision_layer = 2
-
-[node name="Platform9" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(347, 482)
-collision_layer = 2
-
-[node name="Platform10" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(39, 475)
-collision_layer = 2
-
-[node name="Platform11" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(96, 405)
-collision_layer = 2
-
-[node name="Platform12" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(267, 311)
-collision_layer = 2
-
-[node name="Platform13" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(161, 618)
-collision_layer = 2
-
-[node name="Platform4" parent="Platforms" instance=ExtResource("3_8gbba")]
-position = Vector2(212, 700)
-collision_layer = 2
-
-[node name="PlatformPath" type="Path2D" parent="."]
-position = Vector2(6, -12)
-curve = SubResource("Curve2D_8gbba")
-
-[node name="PlatformSpawnLocation" type="PathFollow2D" parent="PlatformPath"]
-position = Vector2(0, 14)
-rotation = 0.00421938
-
-[node name="PlatformTimer" type="Timer" parent="."]
-wait_time = 60.85
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(242, 286)
-shape = SubResource("RectangleShape2D_jjvhh")
-disabled = true
-debug_color = Color(0.878495, 0.21234, 0.664021, 0.42)
-
-[node name="SpawnTrigger" type="Area2D" parent="."]
-position = Vector2(9, 74)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnTrigger"]
-position = Vector2(230.25, -31.25)
-shape = SubResource("RectangleShape2D_kry3j")
+position = Vector2(228, -76)
 
 [node name="HUD" parent="." instance=ExtResource("4_jjvhh")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(240, 400)
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -360)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(236, 305)
+shape = SubResource("RectangleShape2D_21xkr")
+
+[node name="StartPlatform" parent="." instance=ExtResource("3_8gbba")]
+position = Vector2(217, -21)
 
 [connection signal="Fall" from="Player" to="." method="PlatformFall"]
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StopFall" from="Player" to="." method="PlatformStop"]
-[connection signal="timeout" from="PlatformTimer" to="." method="OnPlatformTimerTimeout"]
-[connection signal="body_entered" from="SpawnTrigger" to="." method="OnSpawnTriggerBodyEntered"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

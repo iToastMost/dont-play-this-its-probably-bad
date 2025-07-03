@@ -24,4 +24,9 @@ public partial class Hud : CanvasLayer
         GetNode<Button>("StartButton").Hide();
         GetNode<Label>("StartGameMessage").Hide();
     }
+
+	public void UpdateScore(float score)
+	{
+		GetNode<Label>("Score").Text = $"Score: {score}";
+	}
 }

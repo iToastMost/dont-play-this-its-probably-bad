@@ -14,6 +14,7 @@ public partial class Player : CharacterBody2D
 
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -450.0f;
+	public float deathHeight = 1200;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
 	private bool platformsStops;
@@ -58,25 +59,10 @@ public partial class Player : CharacterBody2D
 
 		Position = new Vector2(
 			x: Mathf.Wrap(Position.X, 0, ScreenSize.X),
-			y: Mathf.Clamp(Position.Y, 0, 730));
+			y: Position.Y);
 
-		if(Position.Y < 400 && velocity.Y <= 0 && platformsFall == false)
-		{
-			platformsFall = true;
-			platformsStops = false;
-			EmitSignal(SignalName.Fall);
-			GD.Print("Platforms falling");
-		}
 
-		if(velocity.Y > 0 && platformsStops == false)
-		{
-			platformsFall = false;
-			platformsStops = true;
-			EmitSignal(SignalName.StopFall);
-			GD.Print("Platforms stop falling");
-		}
-
-		if(Position.Y > 720)
+		if(Position.Y > deathHeight)
 		{
 			Die();
 		}
