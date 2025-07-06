@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection;
 
 public partial class Main : Node
 {
@@ -27,6 +28,7 @@ public partial class Main : Node
 
     private float _topHeightReached = 0f;
     private float _score = 0f;
+    private float _regularPlatformChance = 100;
 
     public override void _Process(double delta)
     {
@@ -40,20 +42,23 @@ public partial class Main : Node
 
     public override void _Ready()
     {
-        NewGame();
+        
         player = GetNode<Player>("Player");
         var playerPosition = GetNode<Player>("Player").Position;
         platforms = PlatformScene;
-        SpawnLevel();
+
+        NewGame();
     }
     public void NewGame()
     {
-        
+        ResetStats();
         var player = GetNode<Player>("Player");
         var startPosition = GetNode<Marker2D>("StartPosition");
         player.Start(startPosition.Position);
         var hud = GetNode<Hud>("HUD");
         hud.HideHud();
+        CallDeferred(nameof(SpawnLevel));
+
         //GetTree().Paused = true;
     }
 
@@ -101,6 +106,8 @@ public partial class Main : Node
         player.deathHeight = _nextLevelY + 2000;
 
         _nextLevelY -= 720;
+        _regularPlatformChance -= 2;
+        GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
 
     }
 
@@ -140,6 +147,8 @@ public partial class Main : Node
         player.deathHeight = _nextLevelY + 2000;
 
         _nextLevelY -= 720;
+        _regularPlatformChance -= 2;
+        GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
     }
 
     private void SpawnPlatforms(Node parentScene)
@@ -153,7 +162,8 @@ public partial class Main : Node
             Vector2 spawnPos = platformSpawnLocation.GlobalPosition;
             spawnPos.Y += _nextLevelY;
 
-            if(_score < 3000) 
+            int roll = GD.RandRange(0, 100);
+            if(roll <= _regularPlatformChance) 
             {
                 Platform platform = PlatformScene.Instantiate<Platform>();
 
@@ -193,11 +203,45 @@ public partial class Main : Node
 
     private void ResetStats()
     {
-        _nextLevelY = 0;
+        if(GetNode<Node>(".") != null) 
+        {
+        var children = GetNode<Node>(".").GetChildren();
+        foreach (var item in children)
+        {
+            if(item is Platform platform)
+            {
+                platform.QueueFree();
+            }
+        }
+        }
+        
+
+        _nextLevelY = -720;
         _score = 0;
-        levelToGo = null;
-        previousLevel = null;
-        currentLevel = null;
+        _topHeightReached = 0;
+        _regularPlatformChance = 100;
+        var spawnAreaPosition = GetNode<Area2D>("Area2D");
+        spawnAreaPosition.Position = new Vector2(spawnAreaPosition.Position.X, _nextLevelY);
+        if (levelToGo != null) 
+        {
+            levelToGo.QueueFree();
+            levelToGo = null;
+        }
+            
+        if (previousLevel != null) 
+        {
+            previousLevel.QueueFree();
+            previousLevel = null;
+        }
+
+        if (currentLevel != null) 
+        {
+            currentLevel.QueueFree();
+            currentLevel = null;
+        }
+            
+        
+
         player.gameOver = false;
     }
 
