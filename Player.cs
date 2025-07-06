@@ -13,15 +13,17 @@ public partial class Player : CharacterBody2D
 	public delegate void GameOverEventHandler();
 
 	public const float Speed = 300.0f;
-	public const float JumpVelocity = -450.0f;
+	public const float JumpVelocity = -500.0f;
 	public float deathHeight = 1200;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
 	private bool platformsStops;
+	public bool gameOver;
 
     public override void _Ready()
     {
 		ScreenSize = GetViewportRect().Size;
+		gameOver = false;
 		platformsFall = false;
 		platformsStops = true;
     }
@@ -62,8 +64,9 @@ public partial class Player : CharacterBody2D
 			y: Position.Y);
 
 
-		if(Position.Y > deathHeight)
+		if(Position.Y > deathHeight && gameOver == false)
 		{
+			gameOver = true;
 			Die();
 		}
 	}
@@ -77,6 +80,7 @@ public partial class Player : CharacterBody2D
 	private void Die()
 	{
 		EmitSignal(SignalName.GameOver);
+		Velocity = Vector2.Zero;
 		Hide();
 		GD.Print("You died!");
 	}

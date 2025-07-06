@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd2mfj1npjcms"]
+
+[sub_resource type="Curve2D" id="Curve2D_tp4fa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 33, 29, 0, 0, 0, 0, 418, 35, 0, 0, 0, 0, 445, 34)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_kb1tf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 92, 0, 0, 0, 0, 447, 92)
+}
+point_count = 2
+
+[node name="Medium" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 480.0
+offset_bottom = 720.0
+color = Color(0.815686, 0.760784, 0.509804, 1)
+
+[node name="PlatformPaths" type="Node" parent="."]
+
+[node name="PlatformPath" type="Path2D" parent="PlatformPaths"]
+curve = SubResource("Curve2D_tp4fa")
+
+[node name="SpawnPath0" type="PathFollow2D" parent="PlatformPaths/PlatformPath"]
+position = Vector2(33, 29)
+rotation = 0.0155832
+
+[node name="PlatformPath1" type="Path2D" parent="PlatformPaths"]
+position = Vector2(0, 56)
+curve = SubResource("Curve2D_kb1tf")
+
+[node name="SpawnPath1" type="PathFollow2D" parent="PlatformPaths/PlatformPath1"]
+position = Vector2(18, 92)
+
+[node name="PlatformPath2" type="Path2D" parent="PlatformPaths"]
+position = Vector2(0, 218)
+curve = SubResource("Curve2D_tp4fa")
+
+[node name="SpawnPath2" type="PathFollow2D" parent="PlatformPaths/PlatformPath2"]
+position = Vector2(33, 29)
+rotation = 0.0155832
+
+[node name="PlatformPath3" type="Path2D" parent="PlatformPaths"]
+position = Vector2(0, 342)
+curve = SubResource("Curve2D_tp4fa")
+
+[node name="SpawnPath3" type="PathFollow2D" parent="PlatformPaths/PlatformPath3"]
+position = Vector2(33, 29)
+rotation = 0.0155832
+
+[node name="PlatformPath4" type="Path2D" parent="PlatformPaths"]
+position = Vector2(1, 442)
+curve = SubResource("Curve2D_tp4fa")
+
+[node name="SpawnPath4" type="PathFollow2D" parent="PlatformPaths/PlatformPath4"]
+position = Vector2(33, 29)
+rotation = 0.0155832
+
+[node name="PlatformPath5" type="Path2D" parent="PlatformPaths"]
+position = Vector2(-5, 546)
+curve = SubResource("Curve2D_tp4fa")
+
+[node name="SpawnPath5" type="PathFollow2D" parent="PlatformPaths/PlatformPath5"]
+position = Vector2(33, 29)
+rotation = 0.0155832
+
+[node name="PlatformPath6" type="Path2D" parent="PlatformPaths"]
+position = Vector2(0, 660)
+curve = SubResource("Curve2D_tp4fa")
+
+[node name="SpawnPath6" type="PathFollow2D" parent="PlatformPaths/PlatformPath6"]
+position = Vector2(33, 29)
+rotation = 0.0155832

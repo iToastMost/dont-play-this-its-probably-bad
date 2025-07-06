@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://lswteuyjdlt0"]
+
+[ext_resource type="Script" uid="uid://skfk0qp0vxjy" path="res://Scenes/MovingPlatform.cs" id="1_o6ags"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cecly"]
+size = Vector2(72, 13)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cecly"]
+
+[node name="MovingPlatform" type="Node2D"]
+script = ExtResource("1_o6ags")
+offSet = Vector2(395, 0)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(36, 6.5)
+shape = SubResource("RectangleShape2D_cecly")
+one_way_collision = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="AnimatableBody2D"]
+modulate = Color(0.782, 0.0843689, 0.497453, 1)
+position = Vector2(35.75, 6)
+scale = Vector2(72.5, 14)
+mesh = SubResource("BoxMesh_cecly")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
