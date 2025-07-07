@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 public partial class Main : Node
 {
@@ -29,9 +30,17 @@ public partial class Main : Node
     private float _topHeightReached = 0f;
     private float _score = 0f;
     private float _regularPlatformChance = 100;
+    private float _platformChanceIncrement = 4;
+
+    private double _timeUntilPause = 0.35;
 
     public override void _Process(double delta)
     {
+        if ((-_topHeightReached - -player.Position.Y) > 400) 
+        {
+            GameOver();
+        }
+
         if (player.Position.Y < _topHeightReached)
         {
             _topHeightReached = player.GlobalPosition.Y;
@@ -59,14 +68,17 @@ public partial class Main : Node
         hud.HideHud();
         CallDeferred(nameof(SpawnLevel));
 
-        //GetTree().Paused = true;
+        GetTree().Paused = false;
+        player.Show();
     }
 
-    private void GameOver()
+    private async void GameOver()
     {
         var hud = GetNode<Hud>("HUD");
         hud.ShowGameOver();
-        //GetTree().Paused = true;
+        player.Hide();
+        //await Task.Delay(TimeSpan.FromSeconds(_timeUntilPause));
+        GetTree().Paused = true;
         
     }
 
@@ -103,10 +115,9 @@ public partial class Main : Node
         spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
 
 
-        player.deathHeight = _nextLevelY + 2000;
-
+        player.deathHeight = _nextLevelY + 1300;
         _nextLevelY -= 720;
-        _regularPlatformChance -= 2;
+        _regularPlatformChance -= _platformChanceIncrement;
         GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
 
     }
@@ -147,7 +158,7 @@ public partial class Main : Node
         player.deathHeight = _nextLevelY + 2000;
 
         _nextLevelY -= 720;
-        _regularPlatformChance -= 2;
+        _regularPlatformChance -= _platformChanceIncrement;
         GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
     }
 
@@ -190,7 +201,7 @@ public partial class Main : Node
     private void OnArea2DBodyEntered(Node2D body)
     {
         //GD.Print("Moving area2d");
-        if(_score < 1000) 
+        if(_score < 5000) 
         {
             CallDeferred(nameof(SpawnLevel));
         }
@@ -203,7 +214,8 @@ public partial class Main : Node
 
     private void ResetStats()
     {
-        if(GetNode<Node>(".") != null) 
+
+        if (GetNode<Node>(".") != null) 
         {
         var children = GetNode<Node>(".").GetChildren();
         foreach (var item in children)
@@ -212,6 +224,11 @@ public partial class Main : Node
             {
                 platform.QueueFree();
             }
+
+            //if(item is MovingPlatform movingPlatform) 
+            //{
+              //   movingPlatform.QueueFree();
+            //}
         }
         }
         
@@ -220,6 +237,7 @@ public partial class Main : Node
         _score = 0;
         _topHeightReached = 0;
         _regularPlatformChance = 100;
+        player.deathHeight = 1200;
         var spawnAreaPosition = GetNode<Area2D>("Area2D");
         spawnAreaPosition.Position = new Vector2(spawnAreaPosition.Position.X, _nextLevelY);
         if (levelToGo != null) 
@@ -239,7 +257,7 @@ public partial class Main : Node
             currentLevel.QueueFree();
             currentLevel = null;
         }
-            
+
         
 
         player.gameOver = false;

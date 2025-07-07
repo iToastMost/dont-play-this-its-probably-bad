@@ -13,8 +13,8 @@ public partial class Player : CharacterBody2D
 	public delegate void GameOverEventHandler();
 
 	public const float Speed = 300.0f;
-	public const float JumpVelocity = -500.0f;
-	public float deathHeight = 1200;
+	public const float JumpVelocity = -550.0f;
+	public float deathHeight = 0;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
 	private bool platformsStops;
@@ -67,7 +67,7 @@ public partial class Player : CharacterBody2D
 		if(Position.Y > deathHeight && gameOver == false)
 		{
 			gameOver = true;
-			Die();
+			//Die();
 		}
 	}
 

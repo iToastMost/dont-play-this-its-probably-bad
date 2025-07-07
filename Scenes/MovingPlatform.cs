@@ -59,4 +59,5 @@ public partial class MovingPlatform : Node2D
         GD.Print("Platform Freed");
     }
 
+    private 
 }

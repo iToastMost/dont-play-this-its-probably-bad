@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=5 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Player.cs" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://cl7yli1gpqry6" path="res://Art/gooseguy.png" id="2_cvnsp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
 
@@ -17,3 +18,9 @@ mesh = SubResource("CapsuleMesh_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sh265")
+
+[node name="Gooseguy" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(4, -28)
+scale = Vector2(0.0645161, 0.0661346)
+texture = ExtResource("2_cvnsp")

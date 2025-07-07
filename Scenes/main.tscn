@@ -48,7 +48,7 @@ drag_vertical_enabled = true
 drag_left_margin = 1.0
 drag_top_margin = 0.1
 drag_right_margin = 1.0
-drag_bottom_margin = 1.0
+drag_bottom_margin = 0.8
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(228, -76)
