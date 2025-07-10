@@ -12,6 +12,7 @@ radius = 7.0
 script = ExtResource("1_4flbx")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
 position = Vector2(7.15256e-07, 4.02331e-06)
 scale = Vector2(14, 15)
 mesh = SubResource("CapsuleMesh_4flbx")
@@ -20,7 +21,6 @@ mesh = SubResource("CapsuleMesh_4flbx")
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="Gooseguy" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(4, -28)
 scale = Vector2(0.0645161, 0.0661346)
 texture = ExtResource("2_cvnsp")
