@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=7 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/bullet.tscn" id="2_6t5aa"]
@@ -8,6 +8,8 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 7.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_6t5aa"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_4flbx")
@@ -30,6 +32,11 @@ texture = ExtResource("2_cvnsp")
 
 [node name="Reticle" type="Marker2D" parent="Rotation"]
 position = Vector2(0, -70)
+
+[node name="spawnBullet" type="MeshInstance2D" parent="Rotation"]
+position = Vector2(64, -0.5)
+scale = Vector2(10, 11)
+mesh = SubResource("BoxMesh_6t5aa")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0

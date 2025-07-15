@@ -24,6 +24,7 @@ public partial class Player : CharacterBody2D
 	public bool gameOver;
 
 	Node2D rotate;
+	MeshInstance2D bulletSpawn;
 
     public override void _Ready()
     {
@@ -33,6 +34,7 @@ public partial class Player : CharacterBody2D
 		platformsStops = true;
 
 		rotate = GetNode<Node2D>("Rotation");
+		bulletSpawn = rotate.GetNode<MeshInstance2D>("spawnBullet");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -66,12 +68,24 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("shoot")) 
 		{
 			GD.Print("Shooting");
-			var bullet = BulletScene.Instantiate();
-			AddChild(bullet);
+			var bullet = BulletScene.Instantiate<Area2D>();
+			bullet.GlobalPosition = bulletSpawn.GlobalPosition;
 			
-		}
+
+			var mousePos = GetGlobalMousePosition();
+			var bulletDirection = (mousePos - bulletSpawn.GlobalPosition).Normalized();
+
+			if(bullet is Bullet bulletScript) 
+			{
+				bulletScript.SetDirection(bulletDirection);
+			}
+
+            GetTree().CurrentScene.AddChild(bullet);
+
+        }
 
 		rotate.LookAt(GetGlobalMousePosition());
+		rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, -135, -45);
 		
 
 		Velocity = velocity;
