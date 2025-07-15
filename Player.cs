@@ -12,6 +12,9 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void GameOverEventHandler();
 
+	[Export]
+	public PackedScene BulletScene { get; set; } 
+
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = -550.0f;
 	public float deathHeight = 0;
@@ -20,12 +23,16 @@ public partial class Player : CharacterBody2D
 	private bool platformsStops;
 	public bool gameOver;
 
+	Node2D rotate;
+
     public override void _Ready()
     {
 		ScreenSize = GetViewportRect().Size;
 		gameOver = false;
 		platformsFall = false;
 		platformsStops = true;
+
+		rotate = GetNode<Node2D>("Rotation");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -55,6 +62,17 @@ public partial class Player : CharacterBody2D
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
+
+		if (Input.IsActionJustPressed("shoot")) 
+		{
+			GD.Print("Shooting");
+			var bullet = BulletScene.Instantiate();
+			AddChild(bullet);
+			
+		}
+
+		rotate.LookAt(GetGlobalMousePosition());
+		
 
 		Velocity = velocity;
 		MoveAndSlide();

@@ -24,6 +24,7 @@ public partial class Main : Node
     private Node2D previousLevel;
     private Node2D currentLevel;
 
+    private Camera2D camera;
 
     Player player;
 
@@ -55,10 +56,11 @@ public partial class Main : Node
         player = GetNode<Player>("Player");
         var playerPosition = GetNode<Player>("Player").Position;
         platforms = PlatformScene;
+        camera = player.GetNode<Camera2D>("Camera2D");
 
         NewGame();
     }
-    public void NewGame()
+    public async void NewGame()
     {
         ResetStats();
         var player = GetNode<Player>("Player");
@@ -67,9 +69,9 @@ public partial class Main : Node
         var hud = GetNode<Hud>("HUD");
         hud.HideHud();
         CallDeferred(nameof(SpawnLevel));
-
         GetTree().Paused = false;
         player.Show();
+        
     }
 
     private async void GameOver()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=6 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Player.cs" id="1_4flbx"]
-[ext_resource type="Texture2D" uid="uid://cl7yli1gpqry6" path="res://Art/gooseguy.png" id="2_cvnsp"]
+[ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/bullet.tscn" id="2_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://drhaim1g27ebn" path="res://Art/GooseGuy2.png" id="2_cvnsp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
 
@@ -10,9 +11,9 @@ radius = 7.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_4flbx")
+BulletScene = ExtResource("2_6t5aa")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-visible = false
 position = Vector2(7.15256e-07, 4.02331e-06)
 scale = Vector2(14, 15)
 mesh = SubResource("CapsuleMesh_4flbx")
@@ -21,6 +22,23 @@ mesh = SubResource("CapsuleMesh_4flbx")
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="Gooseguy" type="Sprite2D" parent="."]
-position = Vector2(4, -28)
-scale = Vector2(0.0645161, 0.0661346)
+position = Vector2(2, 5)
+scale = Vector2(0.29296, 0.33945)
 texture = ExtResource("2_cvnsp")
+
+[node name="Rotation" type="Node2D" parent="."]
+
+[node name="Reticle" type="Marker2D" parent="Rotation"]
+position = Vector2(0, -70)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_right = 480
+limit_bottom = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 4.07
+drag_vertical_enabled = true
+drag_left_margin = 1.0
+drag_top_margin = 0.1
+drag_right_margin = 1.0
+drag_bottom_margin = 1.0

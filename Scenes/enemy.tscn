@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://w80afqggfx6s"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ne65n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
+radius = 24.0
+
+[node name="Enemy" type="Node2D"]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="AnimatableBody2D"]
+position = Vector2(0, 2.86102e-06)
+scale = Vector2(48.0544, 48)
+mesh = SubResource("SphereMesh_ne65n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("CircleShape2D_hghv2")
