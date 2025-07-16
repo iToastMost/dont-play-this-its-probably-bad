@@ -23,5 +23,10 @@ public partial class Bullet : Area2D
 
     }
 
-	//TODO Create two functions for OnEnemyBodyEntered and OnScreenExited to free bullets
+    //TODO Create two functions for OnEnemyBodyEntered and OnScreenExited to free bullets
+
+    private void OnVisibleOnScreenNotifier2DScreenExited()
+    {
+		QueueFree();
+	}
 }

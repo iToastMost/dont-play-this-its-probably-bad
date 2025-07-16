@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://w80afqggfx6s"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_ne65n"]
+[ext_resource type="Texture2D" uid="uid://3jkk8yjmfn7a" path="res://Art/Enemy.png" id="1_hghv2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
-radius = 24.0
+radius = 50.0899
 
 [node name="Enemy" type="Node2D"]
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="AnimatableBody2D"]
-position = Vector2(0, 2.86102e-06)
-scale = Vector2(48.0544, 48)
-mesh = SubResource("SphereMesh_ne65n")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
 shape = SubResource("CircleShape2D_hghv2")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+position = Vector2(7, 18)
+scale = Vector2(0.336458, 0.322222)
+texture = ExtResource("1_hghv2")

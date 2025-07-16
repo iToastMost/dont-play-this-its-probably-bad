@@ -71,9 +71,7 @@ public partial class Player : CharacterBody2D
 			var bullet = BulletScene.Instantiate<Area2D>();
 			bullet.GlobalPosition = bulletSpawn.GlobalPosition;
 			
-
-			var mousePos = GetGlobalMousePosition();
-			var bulletDirection = (mousePos - bulletSpawn.GlobalPosition).Normalized();
+			var bulletDirection = (bulletSpawn.GlobalPosition - rotate.GlobalPosition).Normalized();
 
 			if(bullet is Bullet bulletScript) 
 			{
