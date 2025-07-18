@@ -8,8 +8,8 @@
 radius = 3.0
 
 [node name="Bullet" type="Area2D"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 16
+collision_mask = 8
 script = ExtResource("1_xjght")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
@@ -24,4 +24,5 @@ shape = SubResource("CircleShape2D_xjght")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(0.3, 0.3)
 
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]

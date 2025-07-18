@@ -29,4 +29,15 @@ public partial class Bullet : Area2D
     {
 		QueueFree();
 	}
+
+	private void OnBodyEntered(Node2D body) 
+	{
+		Node parent = body.GetParent();
+        if (parent is Enemy enemy) 
+		{
+			enemy.Hit();
+			QueueFree();
+		}
+		GD.Print("Hit");
+	}
 }

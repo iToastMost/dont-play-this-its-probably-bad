@@ -4,12 +4,6 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	[Signal]
-	public delegate void FallEventHandler();
-
-	[Signal]
-	public delegate void StopFallEventHandler();
-
-	[Signal]
 	public delegate void GameOverEventHandler();
 
 	[Export]
@@ -67,7 +61,7 @@ public partial class Player : CharacterBody2D
 
 		if (Input.IsActionJustPressed("shoot")) 
 		{
-			GD.Print("Shooting");
+			//GD.Print("Shooting");
 			var bullet = BulletScene.Instantiate<Area2D>();
 			bullet.GlobalPosition = bulletSpawn.GlobalPosition;
 			

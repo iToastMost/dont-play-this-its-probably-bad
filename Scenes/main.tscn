@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dggbudueceljn"]
+[gd_scene load_steps=12 format=3 uid="uid://dggbudueceljn"]
 
 [ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Main.cs" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bd2mfj1npjcms" path="res://Scenes/medium.tscn" id="4_6bp64"]
 [ext_resource type="PackedScene" uid="uid://bfohhcfgqpxof" path="res://Scenes/hud.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://lswteuyjdlt0" path="res://Scenes/movingPlatform.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://w80afqggfx6s" path="res://Scenes/enemy.tscn" id="8_344ge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
 size = Vector2(491, 26)
@@ -64,6 +65,9 @@ mesh = SubResource("BoxMesh_6bp64")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
 position = Vector2(240, -7.5)
 shape = SubResource("RectangleShape2D_344ge")
+
+[node name="Enemy" parent="." instance=ExtResource("8_344ge")]
+position = Vector2(124, -404)
 
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]

@@ -63,6 +63,7 @@ public partial class Main : Node
     public async void NewGame()
     {
         ResetStats();
+        //camera.ResetSmoothing();
         var player = GetNode<Player>("Player");
         var startPosition = GetNode<Marker2D>("StartPosition");
         player.Start(startPosition.Position);
