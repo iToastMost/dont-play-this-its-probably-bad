@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 public partial class Main : Node
 {
@@ -38,6 +39,7 @@ public partial class Main : Node
     private float _score = 0f;
     private float _regularPlatformChance = 100;
     private float _enemySpawnChance = 1;
+    private float _springSpawnChance = 3;
     private float _platformChanceIncrement = 1;
     private float deathHeightOffset = 550;
 
@@ -200,11 +202,13 @@ public partial class Main : Node
                     enemySpawned = true;
                 }
 
+                if(roll <= _springSpawnChance && roll >= _enemySpawnChance) 
+                {
+                    SpawnSpring(platform);
+                }
                 AddChild(platform);
 
-                //Spring spring = SpringScene.Instantiate<Spring>();
-                //spring.GlobalPosition = platform.GetNode<Marker2D>("SpringSpawn").GlobalPosition;
-                //AddChild(spring);
+                
             }
             else
             {
@@ -239,28 +243,8 @@ public partial class Main : Node
     private void ResetStats()
     {
 
-        if (GetNode<Node>(".") != null) 
-        {
-        var children = GetNode<Node>(".").GetChildren();
-        foreach (var item in children)
-        {
-            if(item is Platform platform)
-            {
-                platform.QueueFree();
-            }
-
-            if(item is Enemy enemy) 
-                {
-                    enemy.QueueFree();
-                }
-            //if(item is MovingPlatform movingPlatform) 
-            //{
-              //   movingPlatform.QueueFree();
-            //}
-        }
-        }
+        FreeNodes();
         
-
         _nextLevelY = -720;
         _score = 0;
         _topHeightReached = 0;
@@ -300,8 +284,45 @@ public partial class Main : Node
         GD.Print("Enemy Spawned");
     }
 
+    private void SpawnSpring(Platform platform)
+    {
+        Spring spring = SpringScene.Instantiate<Spring>();
+        spring.GlobalPosition = platform.GetNode<Marker2D>("SpringSpawn").GlobalPosition;
+        AddChild(spring);
+    }
+
     private void UpdateScore(float score)
     {
         GetNode<Hud>("HUD").UpdateScore(score);
+    }
+
+    private void FreeNodes() 
+    {
+        if (GetNode<Node>(".") != null)
+        {
+            var children = GetNode<Node>(".").GetChildren();
+            foreach (var item in children)
+            {
+                if (item is Platform platform)
+                {
+                    platform.QueueFree();
+                }
+
+                if (item is Enemy enemy)
+                {
+                    enemy.QueueFree();
+                }
+                
+               // if(item is MovingPlatform movingPlatform) 
+                //{
+                 //  movingPlatform.FreeMovingPlatform();
+                //}
+
+                //if(item is Spring spring) 
+                //{
+                  //  QueueFree();
+                //}
+            }
+        }
     }
 }

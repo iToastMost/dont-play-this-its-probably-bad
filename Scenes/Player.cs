@@ -7,18 +7,30 @@ public partial class Player : CharacterBody2D
 	public delegate void GameOverEventHandler();
 
 	[Export]
-	public PackedScene BulletScene { get; set; } 
+	public PackedScene BulletScene { get; set; }
 
-	public const float Speed = 300.0f;
-	public float JumpVelocity = -550.0f;
+	[Export]
+    private float bounceForce = -1200f;
+
+	[Export]
+    private float bounceOffEnemyForce = -650f;
+
+	[Export]
+    public float JumpVelocity = -550.0f;
+
+    public const float Speed = 300.0f;
 	public float deathHeight = 0;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
 	private bool platformsStops;
 	public bool gameOver;
 
-	Node2D rotate;
+    
+	
+	private Vector2 _calculatedVelocity;
+    Node2D rotate;
 	MeshInstance2D bulletSpawn;
+	RayCast2D landingCheck;
 
     public override void _Ready()
     {
@@ -29,6 +41,7 @@ public partial class Player : CharacterBody2D
 
 		rotate = GetNode<Node2D>("Rotation");
 		bulletSpawn = rotate.GetNode<MeshInstance2D>("spawnBullet");
+		landingCheck = GetNode<RayCast2D>("LandingCheck");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -61,26 +74,16 @@ public partial class Player : CharacterBody2D
 
 		if (Input.IsActionJustPressed("shoot")) 
 		{
-			//GD.Print("Shooting");
-			var bullet = BulletScene.Instantiate<Area2D>();
-			bullet.GlobalPosition = bulletSpawn.GlobalPosition;
-			
-			var bulletDirection = (bulletSpawn.GlobalPosition - rotate.GlobalPosition).Normalized();
-
-			if(bullet is Bullet bulletScript) 
-			{
-				bulletScript.SetDirection(bulletDirection);
-			}
-
-            GetTree().CurrentScene.AddChild(bullet);
-
+			Shoot();
         }
 
 		rotate.LookAt(GetGlobalMousePosition());
 		rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, -135, -45);
-		
 
-		Velocity = velocity;
+		_calculatedVelocity = velocity;
+		BounceCheck();
+
+		Velocity = _calculatedVelocity;
 		MoveAndSlide();
 
 		Position = new Vector2(
@@ -103,9 +106,49 @@ public partial class Player : CharacterBody2D
 
 	public void Bounce(float force) 
 	{
-		Velocity = new Vector2(Velocity.X, force);
+		//GD.Print("Bouncing");
+		_calculatedVelocity.Y = force;
     }
 
+	public void BounceCheck() 
+	{
+		if (landingCheck.IsColliding()) 
+		{
+			//GD.Print("Landing Check Hit: " + landingCheck.GetCollider());
+			var collision = landingCheck.GetCollider();
+			var node = collision as Node;
+			var parent = node.GetParent();
+			if (collision is Spring spring && Velocity.Y > 0) 
+			{
+                //GD.Print("Raycast hit: ", colission.GetType(), " - ", node.Name);
+                Bounce(bounceForce);
+            }
+
+			if(parent is Enemy enemy && Velocity.Y > 0) 
+			{
+                GD.Print("Raycast hit: ", collision.GetType());
+                enemy.Hit();
+				Bounce(bounceOffEnemyForce);
+			}
+			
+		}
+	}
+
+	private void Shoot() 
+	{
+        //GD.Print("Shooting");
+        var bullet = BulletScene.Instantiate<Area2D>();
+        bullet.GlobalPosition = bulletSpawn.GlobalPosition;
+
+        var bulletDirection = (bulletSpawn.GlobalPosition - rotate.GlobalPosition).Normalized();
+
+        if (bullet is Bullet bulletScript)
+        {
+            bulletScript.SetDirection(bulletDirection);
+        }
+
+        GetTree().CurrentScene.AddChild(bullet);
+    }
 	public void Die()
 	{
 		EmitSignal(SignalName.GameOver);

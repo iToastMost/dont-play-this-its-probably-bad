@@ -53,14 +53,21 @@ public partial class MovingPlatform : Node2D
 
     private void OnVisibleOnScreenNotifier2DScreenExited()
     {
-        if(_initialTween != null) 
+        FreeMovingPlatform();
+    }
+
+    public void FreeMovingPlatform() 
+    {
+        if (_initialTween != null)
         {
             _initialTween.Kill();
         }
+        if (_loopingTween != null)
+        {
             _loopingTween.Kill();
-            QueueFree();
-            GD.Print("Platform Freed");
-        
+        }
+        QueueFree();
+        GD.Print("Platform Freed");
     }
 
 }

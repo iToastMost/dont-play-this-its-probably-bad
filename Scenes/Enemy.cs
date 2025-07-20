@@ -3,9 +3,6 @@ using System;
 
 public partial class Enemy : Node2D
 {
-	[Signal]
-	public delegate void PlayerKilledEventHandler();
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

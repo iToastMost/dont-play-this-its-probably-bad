@@ -55,3 +55,9 @@ drag_left_margin = 1.0
 drag_top_margin = 0.0
 drag_right_margin = 1.0
 drag_bottom_margin = 1.0
+
+[node name="LandingCheck" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
+target_position = Vector2(0, 25)
+collision_mask = 56
+collide_with_areas = true
