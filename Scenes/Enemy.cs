@@ -3,9 +3,13 @@ using System;
 
 public partial class Enemy : Node2D
 {
+	[Signal]
+	public delegate void PlayerKilledEventHandler();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -13,9 +17,23 @@ public partial class Enemy : Node2D
 	{
 	}
 
+	public void OnBodyEntered(Node2D body) 
+	{
+		if(body is Player player) 
+		{
+			player.Die();
+		}
+	}
+
 	public void Hit() 
 	{
 		//GD.Print("Hit called");
+		QueueFree();
+	}
+
+	public void OnVisibleOnScreenNotifier2DScreenExited() 
+	{
+		//GD.Print("Eenemy Deleted");
 		QueueFree();
 	}
 }

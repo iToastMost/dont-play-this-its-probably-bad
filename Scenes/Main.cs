@@ -17,6 +17,12 @@ public partial class Main : Node
     [Export]
     public PackedScene MovingPlatformScene { get; set; }
 
+    [Export]
+    public PackedScene EnemyScene { get; set; }
+
+    [Export]
+    public PackedScene SpringScene { get; set; }
+
     PackedScene platforms;
 
     private float _nextLevelY = -720;
@@ -31,13 +37,17 @@ public partial class Main : Node
     private float _topHeightReached = 0f;
     private float _score = 0f;
     private float _regularPlatformChance = 100;
-    private float _platformChanceIncrement = 4;
+    private float _enemySpawnChance = 1;
+    private float _platformChanceIncrement = 1;
+    private float deathHeightOffset = 550;
 
     private double _timeUntilPause = 0.35;
 
+    private bool enemySpawned = false;
+
     public override void _Process(double delta)
     {
-        if ((-_topHeightReached - -player.Position.Y) > 400) 
+        if ((-_topHeightReached - -player.Position.Y) > deathHeightOffset) 
         {
             GameOver();
         }
@@ -63,16 +73,17 @@ public partial class Main : Node
     public async void NewGame()
     {
         ResetStats();
-        //camera.ResetSmoothing();
         var player = GetNode<Player>("Player");
         var startPosition = GetNode<Marker2D>("StartPosition");
         player.Start(startPosition.Position);
+        camera.Position = new Vector2(0, 30);
         var hud = GetNode<Hud>("HUD");
         hud.HideHud();
         CallDeferred(nameof(SpawnLevel));
         GetTree().Paused = false;
         player.Show();
-        
+        //camera.ForceUpdateScroll();
+        camera.ResetSmoothing();
     }
 
     private async void GameOver()
@@ -118,7 +129,7 @@ public partial class Main : Node
         spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
 
 
-        player.deathHeight = _nextLevelY + 1300;
+        //player.deathHeight = _nextLevelY + deathHeightOffset;
         _nextLevelY -= 720;
         _regularPlatformChance -= _platformChanceIncrement;
         GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
@@ -158,7 +169,7 @@ public partial class Main : Node
         spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
 
 
-        player.deathHeight = _nextLevelY + 2000;
+        //player.deathHeight = _nextLevelY + deathHeightOffset;
 
         _nextLevelY -= 720;
         _regularPlatformChance -= _platformChanceIncrement;
@@ -183,7 +194,17 @@ public partial class Main : Node
 
                 platform.GlobalPosition = spawnPos;
 
+                if (roll <= _enemySpawnChance && _score > 2500 && enemySpawned == false) 
+                {
+                    SpawnEnemy(platform);
+                    enemySpawned = true;
+                }
+
                 AddChild(platform);
+
+                //Spring spring = SpringScene.Instantiate<Spring>();
+                //spring.GlobalPosition = platform.GetNode<Marker2D>("SpringSpawn").GlobalPosition;
+                //AddChild(spring);
             }
             else
             {
@@ -196,15 +217,15 @@ public partial class Main : Node
             
 
             //GD.Print("Spawning Platform from Easy Scene" + children[i].Name +" at location: " + platform.Position.Y.ToString());
-
-            
         }
+
+        enemySpawned = false;
     }
 
     private void OnArea2DBodyEntered(Node2D body)
     {
         //GD.Print("Moving area2d");
-        if(_score < 5000) 
+        if(_score < 25000) 
         {
             CallDeferred(nameof(SpawnLevel));
         }
@@ -228,6 +249,10 @@ public partial class Main : Node
                 platform.QueueFree();
             }
 
+            if(item is Enemy enemy) 
+                {
+                    enemy.QueueFree();
+                }
             //if(item is MovingPlatform movingPlatform) 
             //{
               //   movingPlatform.QueueFree();
@@ -264,6 +289,15 @@ public partial class Main : Node
         
 
         player.gameOver = false;
+    }
+
+    private void SpawnEnemy(Platform platform) 
+    
+    {
+        Enemy enemy = EnemyScene.Instantiate<Enemy>();
+        enemy.GlobalPosition = platform.GetNode<Marker2D>("EnemySpawn").GlobalPosition;
+        AddChild(enemy);
+        GD.Print("Enemy Spawned");
     }
 
     private void UpdateScore(float score)

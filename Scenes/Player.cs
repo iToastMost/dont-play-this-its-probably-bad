@@ -10,7 +10,7 @@ public partial class Player : CharacterBody2D
 	public PackedScene BulletScene { get; set; } 
 
 	public const float Speed = 300.0f;
-	public const float JumpVelocity = -550.0f;
+	public float JumpVelocity = -550.0f;
 	public float deathHeight = 0;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
@@ -88,9 +88,9 @@ public partial class Player : CharacterBody2D
 			y: Position.Y);
 
 
-		if(Position.Y > deathHeight && gameOver == false)
+		//if(Position.Y > deathHeight && gameOver == false)
 		{
-			gameOver = true;
+			//gameOver = true;
 			//Die();
 		}
 	}
@@ -101,11 +101,16 @@ public partial class Player : CharacterBody2D
 		Show();
 	}
 
-	private void Die()
+	public void Bounce(float force) 
+	{
+		Velocity = new Vector2(Velocity.X, force);
+    }
+
+	public void Die()
 	{
 		EmitSignal(SignalName.GameOver);
-		Velocity = Vector2.Zero;
-		Hide();
-		GD.Print("You died!");
+		//Velocity = Vector2.Zero;
+		//Hide();
+		//GD.Print("You died!");
 	}
 }

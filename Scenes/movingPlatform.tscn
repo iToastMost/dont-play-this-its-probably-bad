@@ -12,6 +12,8 @@ script = ExtResource("1_o6ags")
 offSet = Vector2(395, 0)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(36, 6)
+scale = Vector2(3.5, 0.7)
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
 collision_layer = 2
