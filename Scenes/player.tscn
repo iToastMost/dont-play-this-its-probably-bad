@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=9 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Scenes/Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/bullet.tscn" id="2_6t5aa"]
@@ -12,8 +12,11 @@ radius = 7.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_6t5aa"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgqql"]
+size = Vector2(2384, 1082)
+
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 33
+collision_mask = 97
 script = ExtResource("1_4flbx")
 BulletScene = ExtResource("2_6t5aa")
 
@@ -61,3 +64,14 @@ position = Vector2(1, 0)
 target_position = Vector2(0, 25)
 collision_mask = 56
 collide_with_areas = true
+
+[node name="DespawnArea" type="Area2D" parent="."]
+position = Vector2(3, 2)
+collision_layer = 0
+collision_mask = 4095
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnArea"]
+position = Vector2(-3, 957)
+shape = SubResource("RectangleShape2D_vgqql")
+
+[connection signal="body_entered" from="DespawnArea" to="." method="OnBodyEntered"]

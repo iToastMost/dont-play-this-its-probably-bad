@@ -2,13 +2,10 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class VerticalPlatform : Node2D
+public partial class VerticalPlatform : StaticBody2D
 {
 	[Export]
-	public Vector2 offset = new Vector2(0, -400);
-
-	[Export]
-	public Vector2 onset = new Vector2(0, 0);
+	public float moveDistance = -400f;
 
 	private double duration = 5;
 	
@@ -17,8 +14,7 @@ public partial class VerticalPlatform : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-        offset.X = Position.X;
-        onset.X = Position.X;
+		AddToGroup("Platforms");
         StartTween();
     }
 
@@ -29,19 +25,28 @@ public partial class VerticalPlatform : Node2D
 
 	private void StartTween() 
 	{
+		GD.Print("Tweening off my gourd");
 		var body = GetNode<AnimatableBody2D>("AnimatableBody2D");
+
+		Vector2 start = body.GlobalPosition;
+		Vector2 end = start + new Vector2(0, moveDistance);
 
 		tween = GetTree().CreateTween().SetProcessMode(Tween.TweenProcessMode.Physics);
 
-		tween.SetLoops().SetParallel(false);
-		tween.TweenProperty(body, "global_position", offset, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-        tween.TweenProperty(body, "global_position", onset, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+		tween.SetLoops(100).SetParallel(false);
+		tween.TweenProperty(body, "global_position", end, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+        tween.TweenProperty(body, "global_position", start, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
     }
 
-    private void OnVisibleOnScreenNotifier2DScreenExited()
+    public void FreeMovingPlatform()
     {
-		tween.Kill();
-        QueueFree();
-        GD.Print("Platform Freed");
+		tween?.Kill();
+        SetProcess(false);
     }
+
+    public override void _ExitTree()
+    {
+        FreeMovingPlatform();
+    }
+
 }

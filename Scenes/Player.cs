@@ -10,30 +10,33 @@ public partial class Player : CharacterBody2D
 	public PackedScene BulletScene { get; set; }
 
 	[Export]
-    private float bounceForce = -1200f;
+	private float bounceForce = -1200f;
 
 	[Export]
-    private float bounceOffEnemyForce = -650f;
+	private float bounceOffEnemyForce = -650f;
 
 	[Export]
-    public float JumpVelocity = -550.0f;
+	public float JumpVelocity = -550.0f;
 
-    public const float Speed = 300.0f;
+	public const float Speed = 300.0f;
 	public float deathHeight = 0;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
 	private bool platformsStops;
 	public bool gameOver;
 
-    
-	
+	private float clampAimLeft = -135f;
+	private float clampAimRight = -45f;
+
+
+
 	private Vector2 _calculatedVelocity;
-    Node2D rotate;
+	Node2D rotate;
 	MeshInstance2D bulletSpawn;
 	RayCast2D landingCheck;
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		ScreenSize = GetViewportRect().Size;
 		gameOver = false;
 		platformsFall = false;
@@ -42,9 +45,9 @@ public partial class Player : CharacterBody2D
 		rotate = GetNode<Node2D>("Rotation");
 		bulletSpawn = rotate.GetNode<MeshInstance2D>("spawnBullet");
 		landingCheck = GetNode<RayCast2D>("LandingCheck");
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
 
@@ -72,13 +75,13 @@ public partial class Player : CharacterBody2D
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
 
-		if (Input.IsActionJustPressed("shoot")) 
+		if (Input.IsActionJustPressed("shoot"))
 		{
 			Shoot();
-        }
+		}
 
 		rotate.LookAt(GetGlobalMousePosition());
-		rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, -135, -45);
+		rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, clampAimLeft, clampAimRight);
 
 		_calculatedVelocity = velocity;
 		BounceCheck();
@@ -104,56 +107,64 @@ public partial class Player : CharacterBody2D
 		Show();
 	}
 
-	public void Bounce(float force) 
+	public void Bounce(float force)
 	{
 		//GD.Print("Bouncing");
 		_calculatedVelocity.Y = force;
-    }
+	}
 
-	public void BounceCheck() 
+	public void BounceCheck()
 	{
-		if (landingCheck.IsColliding()) 
+		if (landingCheck.IsColliding())
 		{
 			//GD.Print("Landing Check Hit: " + landingCheck.GetCollider());
 			var collision = landingCheck.GetCollider();
 			var node = collision as Node;
 			var parent = node.GetParent();
-			if (collision is Spring spring && Velocity.Y > 0) 
+			if (collision is Spring spring && Velocity.Y > 0)
 			{
-                //GD.Print("Raycast hit: ", colission.GetType(), " - ", node.Name);
-                Bounce(bounceForce);
-            }
+				//GD.Print("Raycast hit: ", colission.GetType(), " - ", node.Name);
+				Bounce(bounceForce);
+			}
 
-			if(parent is Enemy enemy && Velocity.Y > 0) 
+			if (parent is Enemy enemy && Velocity.Y > 0)
 			{
-                GD.Print("Raycast hit: ", collision.GetType());
-                enemy.Hit();
+				GD.Print("Raycast hit: ", collision.GetType());
+				enemy.Hit();
 				Bounce(bounceOffEnemyForce);
 			}
-			
+
 		}
 	}
 
-	private void Shoot() 
+	private void Shoot()
 	{
-        //GD.Print("Shooting");
-        var bullet = BulletScene.Instantiate<Area2D>();
-        bullet.GlobalPosition = bulletSpawn.GlobalPosition;
+		//GD.Print("Shooting");
+		var bullet = BulletScene.Instantiate<Area2D>();
+		bullet.GlobalPosition = bulletSpawn.GlobalPosition;
 
-        var bulletDirection = (bulletSpawn.GlobalPosition - rotate.GlobalPosition).Normalized();
+		var bulletDirection = (bulletSpawn.GlobalPosition - rotate.GlobalPosition).Normalized();
 
-        if (bullet is Bullet bulletScript)
-        {
-            bulletScript.SetDirection(bulletDirection);
-        }
+		if (bullet is Bullet bulletScript)
+		{
+			bulletScript.SetDirection(bulletDirection);
+		}
 
-        GetTree().CurrentScene.AddChild(bullet);
-    }
+		GetTree().CurrentScene.AddChild(bullet);
+	}
+
+	private void OnBodyEntered(Node2D body)
+	{
+        if (body.IsInGroup("Platforms") || body.IsInGroup("Enemies")) 
+		{
+			GD.Print("Freed: " + body.GetType());
+			body.SetProcess(false);
+			body.QueueFree();
+		}
+	}
+
 	public void Die()
 	{
 		EmitSignal(SignalName.GameOver);
-		//Velocity = Vector2.Zero;
-		//Hide();
-		//GD.Print("You died!");
 	}
 }

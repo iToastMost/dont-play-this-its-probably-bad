@@ -24,6 +24,12 @@ public partial class Main : Node
     [Export]
     public PackedScene SpringScene { get; set; }
 
+    [Export]
+    public PackedScene VerticalPlatformScene { get; set; }
+
+    [Export]
+    private float _mediumScoreRequirment = 12500;
+
     PackedScene platforms;
 
     private float _nextLevelY = -720;
@@ -145,15 +151,32 @@ public partial class Main : Node
             levelToGo.QueueFree();
         }
 
-        Node2D medium = MediumScene.Instantiate<Node2D>();
+        int roll = GD.RandRange(0, 100);
 
-        medium.Position = new Vector2(0, _nextLevelY);
+        Node2D medium;
+        if(roll < 98) 
+        {
+            medium = MediumScene.Instantiate<Node2D>();
 
-        GD.Print("Level Spawned");
+            medium.Position = new Vector2(0, _nextLevelY);
 
-        AddChild(medium);
+            AddChild(medium);
 
-        SpawnPlatforms(medium);
+            SpawnPlatforms(medium);
+        }
+        else 
+        {
+            medium = VerticalPlatformScene.Instantiate<Node2D>();
+
+            medium.Position = new Vector2(0, _nextLevelY);
+
+            AddChild(medium);
+        }
+        
+
+        //GD.Print("Level Spawned");
+
+        
 
         if (previousLevel != null)
         {
@@ -229,7 +252,7 @@ public partial class Main : Node
     private void OnArea2DBodyEntered(Node2D body)
     {
         //GD.Print("Moving area2d");
-        if(_score < 25000) 
+        if(_score < _mediumScoreRequirment) 
         {
             CallDeferred(nameof(SpawnLevel));
         }

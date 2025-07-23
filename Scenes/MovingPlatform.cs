@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MovingPlatform : Node2D
+public partial class MovingPlatform : StaticBody2D
 {
     [Export]
     private Vector2 offSet = new Vector2(405, 0);
@@ -17,12 +17,18 @@ public partial class MovingPlatform : Node2D
 
     public override void _Ready()
     {
+        AddToGroup("Platforms");
         offSet.Y = Position.Y;
         onSet.Y = Position.Y;
         StartTween();
     }
 
     private void StartTween()
+    {
+        InitialTween();
+    }
+
+    private void InitialTween() 
     {
         var body = GetNode<AnimatableBody2D>("AnimatableBody2D");
         Vector2 start = body.GlobalPosition;
@@ -32,13 +38,13 @@ public partial class MovingPlatform : Node2D
         float baseSpeed = fullDistance / duration;
 
         float initialDistance = start.DistanceTo(end);
-        float initialDuration = initialDistance / baseSpeed; 
+        float initialDuration = initialDistance / baseSpeed;
 
         _initialTween = GetTree().CreateTween().SetProcessMode(Tween.TweenProcessMode.Physics);
-        
+
 
         _initialTween.TweenProperty(body, "global_position", offSet, initialDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-        
+
         _initialTween.TweenCallback(Callable.From(() => StartLoopTween(body)));
     }
 
@@ -51,23 +57,17 @@ public partial class MovingPlatform : Node2D
         _loopingTween.TweenProperty(body, "global_position", offSet, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);   
     }
 
-    private void OnVisibleOnScreenNotifier2DScreenExited()
-    {
-        FreeMovingPlatform();
-    }
-
     public void FreeMovingPlatform() 
     {
-        if (_initialTween != null)
-        {
-            _initialTween.Kill();
-        }
-        if (_loopingTween != null)
-        {
-            _loopingTween.Kill();
-        }
-        QueueFree();
-        GD.Print("Platform Freed");
+        _initialTween?.Kill();
+        _loopingTween?.Kill();
+        
+        SetProcess(false);
+    }
+
+    public override void _ExitTree()
+    {
+        FreeMovingPlatform();
     }
 
 }
