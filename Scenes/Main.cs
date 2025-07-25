@@ -336,10 +336,10 @@ public partial class Main : Node
                     enemy.QueueFree();
                 }
                 
-               // if(item is MovingPlatform movingPlatform) 
-                //{
-                 //  movingPlatform.FreeMovingPlatform();
-                //}
+               if(item is MovingPlatform movingPlatform) 
+               {
+                  movingPlatform.QueueFree();
+               }
 
                 //if(item is Spring spring) 
                 //{

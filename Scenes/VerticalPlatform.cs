@@ -18,11 +18,6 @@ public partial class VerticalPlatform : StaticBody2D
         StartTween();
     }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	private void StartTween() 
 	{
 		GD.Print("Tweening off my gourd");

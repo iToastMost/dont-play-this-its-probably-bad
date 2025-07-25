@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b2s8nhkxxa2ds" path="res://Scenes/spring.tscn" id="7_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://w80afqggfx6s" path="res://Scenes/enemy.tscn" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://ckire8pyn7qpq" path="res://Scenes/vertical_platform_preset.tscn" id="8_hptm8"]
-[ext_resource type="PackedScene" uid="uid://bkgius2gp7bhs" path="res://Scenes/vertical_platform.tscn" id="11_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://0woc4cr3khdd" path="res://Scenes/flying_enemy.tscn" id="11_d1ilt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
 size = Vector2(491, 26)
@@ -29,6 +29,7 @@ MovingPlatformScene = ExtResource("6_21xkr")
 EnemyScene = ExtResource("8_344ge")
 SpringScene = ExtResource("7_ynf5e")
 VerticalPlatformScene = ExtResource("8_hptm8")
+_mediumScoreRequirment = 5000.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -72,8 +73,8 @@ mesh = SubResource("BoxMesh_6bp64")
 position = Vector2(240, -7.5)
 shape = SubResource("RectangleShape2D_344ge")
 
-[node name="VerticalPlatform" parent="." instance=ExtResource("11_d1ilt")]
-position = Vector2(100, -378)
+[node name="FlyingEnemy" parent="." instance=ExtResource("11_d1ilt")]
+position = Vector2(85, -154)
 
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]
