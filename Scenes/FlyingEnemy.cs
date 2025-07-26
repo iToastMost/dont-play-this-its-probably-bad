@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class FlyingEnemy : Node2D
+public partial class FlyingEnemy : AnimatableBody2D
 {
     private float _time = 0f;
 
@@ -16,6 +16,7 @@ public partial class FlyingEnemy : Node2D
     private float UpwardSpeed = 100f;
 
     private Vector2 _StartPosition;
+    private Area2D area;
 
 
     private Tween tween;
@@ -24,16 +25,17 @@ public partial class FlyingEnemy : Node2D
     {
         AddToGroup("Enemies");
         _StartPosition = GlobalPosition;
+        area = GetNode<Area2D>("Area2D");
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         _time += (float)delta;
 
         float xOffset = Mathf.Sin(_time * SineSpeed) * SineAmplitude;
         float yOffset = -(float)_time * UpwardSpeed;
 
-        GlobalPosition = _StartPosition + new Vector2(xOffset, yOffset);
+        Position = _StartPosition + new Vector2(xOffset, yOffset);
 
     }
 
@@ -45,9 +47,17 @@ public partial class FlyingEnemy : Node2D
         }
     }
 
+    public void OnAreaEntered(Area2D area) 
+    {
+        if (area.IsInGroup("Bullets")) 
+        {
+            QueueFree();
+        }
+    }
+
     public void Hit()
     {
-        //GD.Print("Hit called");
+        GD.Print("Hit called");
         QueueFree();
     }
 }

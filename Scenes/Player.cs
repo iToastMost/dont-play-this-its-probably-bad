@@ -130,8 +130,20 @@ public partial class Player : CharacterBody2D
 			if (parent is Enemy enemy && Velocity.Y > 0)
 			{
 				GD.Print("Raycast hit: ", collision.GetType());
-				enemy.Hit();
+				enemy?.Hit();
 				Bounce(bounceOffEnemyForce);
+			}
+
+			if(parent is FlyingEnemy flying && Velocity.Y > 0) 
+			{
+				flying?.Hit();
+				Bounce(bounceOffEnemyForce);
+			}
+
+			if(collision is OneJumpPlatform oneJumpPlatform && Velocity.Y > 0) 
+			{
+				oneJumpPlatform.Hit();
+				Bounce(JumpVelocity);
 			}
 
 		}

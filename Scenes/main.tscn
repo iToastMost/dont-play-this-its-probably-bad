@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dggbudueceljn"]
+[gd_scene load_steps=17 format=3 uid="uid://dggbudueceljn"]
 
 [ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Scenes/Main.cs" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/player.tscn" id="2_8gbba"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://b2s8nhkxxa2ds" path="res://Scenes/spring.tscn" id="7_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://w80afqggfx6s" path="res://Scenes/enemy.tscn" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://ckire8pyn7qpq" path="res://Scenes/vertical_platform_preset.tscn" id="8_hptm8"]
+[ext_resource type="PackedScene" uid="uid://b8sdit5l3qau4" path="res://Scenes/one_jump_platform.tscn" id="10_6iyac"]
 [ext_resource type="PackedScene" uid="uid://0woc4cr3khdd" path="res://Scenes/flying_enemy.tscn" id="11_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://jy5tfrdy5m72" path="res://Scenes/timed_platform.tscn" id="13_fdnlq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
 size = Vector2(491, 26)
@@ -29,8 +31,11 @@ MovingPlatformScene = ExtResource("6_21xkr")
 EnemyScene = ExtResource("8_344ge")
 SpringScene = ExtResource("7_ynf5e")
 VerticalPlatformScene = ExtResource("8_hptm8")
+FlyingEnemyScene = ExtResource("11_d1ilt")
+OneJumpPlatformScene = ExtResource("10_6iyac")
+_mediumScoreRequirment = 0.0
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." groups=["Bullets", "Enemies", "Platforms"]]
 z_index = -1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,8 +77,11 @@ mesh = SubResource("BoxMesh_6bp64")
 position = Vector2(240, -7.5)
 shape = SubResource("RectangleShape2D_344ge")
 
-[node name="FlyingEnemy" parent="." instance=ExtResource("11_d1ilt")]
-position = Vector2(229, -154)
+[node name="OneJumpPlatform" parent="." instance=ExtResource("10_6iyac")]
+position = Vector2(119, -137)
+
+[node name="TimedPlatform" parent="." instance=ExtResource("13_fdnlq")]
+position = Vector2(369, -177)
 
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]

@@ -8,6 +8,7 @@ public partial class Bullet : Area2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		AddToGroup("Bullets");
 	}
 
 	public void SetDirection(Vector2 direction) 
@@ -34,6 +35,10 @@ public partial class Bullet : Area2D
 		{
 			enemy.Hit();
 			QueueFree();
+		}
+		if(parent is FlyingEnemy flying) 
+		{
+			flying.Hit();
 		}
 		GD.Print("Hit");
 	}

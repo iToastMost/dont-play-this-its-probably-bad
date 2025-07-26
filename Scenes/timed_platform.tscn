@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://jy5tfrdy5m72"]
+
+[ext_resource type="Script" uid="uid://bufdwwtgx6hrg" path="res://Scenes/TimedPlatform.cs" id="1_go4lr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ej85"]
+size = Vector2(102, 16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_go4lr"]
+
+[node name="TimedPlatform" type="StaticBody2D"]
+script = ExtResource("1_go4lr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_7ej85")
+one_way_collision = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0.184199, 0.489257, 0.548544, 1)
+position = Vector2(0.5, 2)
+scale = Vector2(101, 16)
+mesh = SubResource("BoxMesh_go4lr")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="Timeout"]

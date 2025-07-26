@@ -28,6 +28,12 @@ public partial class Main : Node
     public PackedScene VerticalPlatformScene { get; set; }
 
     [Export]
+    public PackedScene FlyingEnemyScene { get; set; }
+
+    [Export]
+    public PackedScene OneJumpPlatformScene { get; set; }
+
+    [Export]
     private float _mediumScoreRequirment = 12500;
 
     PackedScene platforms;
@@ -193,6 +199,11 @@ public partial class Main : Node
         var spawnAreaPosition = GetNode<Area2D>("Area2D");
         spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
 
+        if(roll >=90 && roll <= 100) 
+        {
+            SpawnFlyingEnemy(spawnAreaPosition);
+        }
+        
 
         //player.deathHeight = _nextLevelY + deathHeightOffset;
 
@@ -305,6 +316,14 @@ public partial class Main : Node
         enemy.GlobalPosition = platform.GetNode<Marker2D>("EnemySpawn").GlobalPosition;
         AddChild(enemy);
         GD.Print("Enemy Spawned");
+    }
+
+    private void SpawnFlyingEnemy(Area2D spawnAreaPosition) 
+    {
+        FlyingEnemy flyingEnemy = FlyingEnemyScene.Instantiate<FlyingEnemy>();
+        flyingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 100);
+        AddChild(flyingEnemy);
+
     }
 
     private void SpawnSpring(Platform platform)
