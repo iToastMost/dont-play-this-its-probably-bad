@@ -29,7 +29,6 @@ MovingPlatformScene = ExtResource("6_21xkr")
 EnemyScene = ExtResource("8_344ge")
 SpringScene = ExtResource("7_ynf5e")
 VerticalPlatformScene = ExtResource("8_hptm8")
-_mediumScoreRequirment = 5000.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -74,7 +73,7 @@ position = Vector2(240, -7.5)
 shape = SubResource("RectangleShape2D_344ge")
 
 [node name="FlyingEnemy" parent="." instance=ExtResource("11_d1ilt")]
-position = Vector2(85, -154)
+position = Vector2(229, -154)
 
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]
