@@ -31,7 +31,11 @@ public partial class Main : Node
     public PackedScene FlyingEnemyScene { get; set; }
 
     [Export]
-    public PackedScene OneJumpPlatformScene { get; set; }
+    public PackedScene OneJumpPlatformPresetScene { get; set; }
+
+    [Export]
+    public PackedScene TimedPlatformPresetScene { get; set; }
+
 
     [Export]
     private float _mediumScoreRequirment = 12500;
@@ -52,7 +56,7 @@ public partial class Main : Node
     private float _regularPlatformChance = 100;
     private float _enemySpawnChance = 1;
     private float _springSpawnChance = 3;
-    private float _platformChanceIncrement = 1;
+    private float _platformChanceIncrement = 2;
     private float deathHeightOffset = 550;
 
     private double _timeUntilPause = 0.35;
@@ -160,7 +164,7 @@ public partial class Main : Node
         int roll = GD.RandRange(0, 100);
 
         Node2D medium;
-        if(roll < 98) 
+        if(roll < 85) 
         {
             medium = MediumScene.Instantiate<Node2D>();
 
@@ -172,11 +176,26 @@ public partial class Main : Node
         }
         else 
         {
-            medium = VerticalPlatformScene.Instantiate<Node2D>();
+            int roll2 = GD.RandRange(0, 2);
+
+            if(roll2 == 0) 
+            {
+                medium = VerticalPlatformScene.Instantiate<Node2D>();
+            }
+            else if (roll2 == 1) 
+            {
+                medium = OneJumpPlatformPresetScene.Instantiate<Node2D>();
+
+            }
+            else 
+            {
+                medium = TimedPlatformPresetScene.Instantiate<Node2D>();
+            }
 
             medium.Position = new Vector2(0, _nextLevelY);
 
             AddChild(medium);
+
         }
         
 
@@ -199,7 +218,7 @@ public partial class Main : Node
         var spawnAreaPosition = GetNode<Area2D>("Area2D");
         spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
 
-        if(roll >=90 && roll <= 100) 
+        if(roll >=80 && roll <= 100) 
         {
             SpawnFlyingEnemy(spawnAreaPosition);
         }

@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://b32l7vfn0vvl3" path="res://Art/Alien Man UFO.png" id="2_gcrhg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
-radius = 39.1152
+radius = 31.0644
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
-radius = 49.0102
+radius = 34.3657
 
 [node name="FlyingEnemy" type="AnimatableBody2D"]
 collision_layer = 24

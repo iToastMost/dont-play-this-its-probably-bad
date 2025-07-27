@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://35ntlsmcn5n2" path="res://Art/Alien Man.png" id="2_1f0kj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
-radius = 39.1152
+radius = 31.0644
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
-radius = 49.0102
+radius = 33.0151
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_1f0kj")

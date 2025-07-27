@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg7g423gaj0vs"]
+
+[ext_resource type="PackedScene" uid="uid://jy5tfrdy5m72" path="res://Scenes/timed_platform.tscn" id="1_26vll"]
+
+[node name="TimedPlatformPreset" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 480.0
+offset_bottom = 720.0
+color = Color(0.815686, 0.760784, 0.509804, 1)
+
+[node name="TimedPlatforms" type="Node" parent="."]
+
+[node name="TimedPlatform2" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(204, 557)
+timeRangeStart = 4.0
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(60, 641)
+timeRangeEnd = 8.0
+
+[node name="TimedPlatform3" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(77, 498)
+timeRangeEnd = 8.0
+
+[node name="TimedPlatform4" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(360, 410)
+timeRangeStart = 2.0
+timeRangeEnd = 4.0
+
+[node name="TimedPlatform5" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(95, 341)
+timeRangeStart = 4.0
+timeRangeEnd = 6.0
+
+[node name="TimedPlatform6" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(253, 272)
+timeRangeEnd = 8.0
+
+[node name="TimedPlatform7" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(94, 180)
+timeRangeStart = 4.0
+timeRangeEnd = 6.0
+
+[node name="TimedPlatform8" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(319, 56)
+timeRangeStart = 8.0
+
+[node name="TimedPlatform9" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(320, 665)
+timeRangeEnd = 7.0
+
+[node name="TimedPlatform10" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(147, 605)
+timeRangeStart = 4.0
+timeRangeEnd = 6.0
+
+[node name="TimedPlatform11" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(219, 411)
+timeRangeEnd = 8.0
+
+[node name="TimedPlatform12" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(141, 85)
+timeRangeEnd = 6.0

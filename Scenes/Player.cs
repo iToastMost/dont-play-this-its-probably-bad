@@ -167,7 +167,7 @@ public partial class Player : CharacterBody2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-        if (body.IsInGroup("Platforms") || body.IsInGroup("Enemies")) 
+        if (body != null && (body.IsInGroup("Platforms") || body.IsInGroup("Enemies"))) 
 		{
 			GD.Print("Freed: " + body.GetType());
 			body.SetProcess(false);

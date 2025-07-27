@@ -27,9 +27,5 @@ moveDistance = 175.0
 position = Vector2(112, 152)
 moveDistance = -175.0
 
-[node name="VerticalPlatform3" parent="." instance=ExtResource("1_pmjjm")]
-position = Vector2(110, 382)
-moveDistance = -175.0
-
 [node name="Platform" parent="." instance=ExtResource("2_hnaow")]
 position = Vector2(222, 40)
