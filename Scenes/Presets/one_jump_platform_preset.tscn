@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mfvxf4oe56dy"]
 
-[ext_resource type="PackedScene" uid="uid://b8sdit5l3qau4" path="res://Scenes/one_jump_platform.tscn" id="1_318qx"]
+[ext_resource type="PackedScene" uid="uid://b8sdit5l3qau4" path="res://Scenes/Platforms/one_jump_platform.tscn" id="1_318qx"]
 
 [node name="OneJumpPlatformPreset" type="Node2D"]
 

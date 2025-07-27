@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwtdum4tf20wl"]
 
-[ext_resource type="Script" uid="uid://c1ngseq5ufe2v" path="res://Scenes/Easy.cs" id="1_flpfm"]
-[ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platform.tscn" id="2_1444l"]
+[ext_resource type="Script" uid="uid://c1ngseq5ufe2v" path="res://Scripts/Easy.cs" id="1_flpfm"]
+[ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platforms/Platform.tscn" id="2_1444l"]
 
 [sub_resource type="Curve2D" id="Curve2D_pnkhx"]
 _data = {

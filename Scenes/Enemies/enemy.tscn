@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://w80afqggfx6s"]
 
-[ext_resource type="Script" uid="uid://sjc8agecrnda" path="res://Scenes/Enemy.cs" id="1_1f0kj"]
+[ext_resource type="Script" uid="uid://sjc8agecrnda" path="res://Scripts/Enemy Scripts/Enemy.cs" id="1_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://35ntlsmcn5n2" path="res://Art/Alien Man.png" id="2_1f0kj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]

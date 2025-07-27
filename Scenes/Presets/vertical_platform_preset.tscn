@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckire8pyn7qpq"]
 
-[ext_resource type="PackedScene" uid="uid://bkgius2gp7bhs" path="res://Scenes/vertical_platform.tscn" id="1_pmjjm"]
-[ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platform.tscn" id="2_hnaow"]
+[ext_resource type="PackedScene" uid="uid://bkgius2gp7bhs" path="res://Scenes/Platforms/vertical_platform.tscn" id="1_pmjjm"]
+[ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platforms/Platform.tscn" id="2_hnaow"]
 
 [node name="VerticalPlatformPreset" type="Node2D"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8sdit5l3qau4"]
 
-[ext_resource type="Script" uid="uid://b62mgxx4yjq5f" path="res://Scenes/OneJumpPlatform.cs" id="1_7n08u"]
+[ext_resource type="Script" uid="uid://b62mgxx4yjq5f" path="res://Scripts/Platform Scripts/OneJumpPlatform.cs" id="1_7n08u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evbah"]
 size = Vector2(72, 13)

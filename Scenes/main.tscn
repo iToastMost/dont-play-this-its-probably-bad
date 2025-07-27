@@ -1,18 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://dggbudueceljn"]
+[gd_scene load_steps=14 format=3 uid="uid://dggbudueceljn"]
 
-[ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Scenes/Main.cs" id="1_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/player.tscn" id="2_8gbba"]
-[ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platform.tscn" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Scripts/Main.cs" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/Player Scenes/player.tscn" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://brhj2llbensot" path="res://Scenes/Platforms/Platform.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://bwtdum4tf20wl" path="res://Scenes/easy.tscn" id="3_kry3j"]
 [ext_resource type="PackedScene" uid="uid://bd2mfj1npjcms" path="res://Scenes/medium.tscn" id="4_6bp64"]
 [ext_resource type="PackedScene" uid="uid://bfohhcfgqpxof" path="res://Scenes/hud.tscn" id="4_jjvhh"]
-[ext_resource type="PackedScene" uid="uid://lswteuyjdlt0" path="res://Scenes/movingPlatform.tscn" id="6_21xkr"]
-[ext_resource type="PackedScene" uid="uid://b2s8nhkxxa2ds" path="res://Scenes/spring.tscn" id="7_ynf5e"]
-[ext_resource type="PackedScene" uid="uid://w80afqggfx6s" path="res://Scenes/enemy.tscn" id="8_344ge"]
-[ext_resource type="PackedScene" uid="uid://ckire8pyn7qpq" path="res://Scenes/vertical_platform_preset.tscn" id="8_hptm8"]
-[ext_resource type="PackedScene" uid="uid://mfvxf4oe56dy" path="res://Scenes/one_jump_platform_preset.tscn" id="10_fdnlq"]
-[ext_resource type="PackedScene" uid="uid://0woc4cr3khdd" path="res://Scenes/flying_enemy.tscn" id="11_d1ilt"]
-[ext_resource type="PackedScene" uid="uid://cg7g423gaj0vs" path="res://Scenes/timed_platform_preset.tscn" id="11_jkdf5"]
+[ext_resource type="PackedScene" uid="uid://lswteuyjdlt0" path="res://Scenes/Platforms/movingPlatform.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://b2s8nhkxxa2ds" path="res://Scenes/Power Ups/spring.tscn" id="7_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://w80afqggfx6s" path="res://Scenes/Enemies/enemy.tscn" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://0woc4cr3khdd" path="res://Scenes/Enemies/flying_enemy.tscn" id="11_d1ilt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
 size = Vector2(491, 26)
@@ -30,10 +27,7 @@ MediumScene = ExtResource("4_6bp64")
 MovingPlatformScene = ExtResource("6_21xkr")
 EnemyScene = ExtResource("8_344ge")
 SpringScene = ExtResource("7_ynf5e")
-VerticalPlatformScene = ExtResource("8_hptm8")
 FlyingEnemyScene = ExtResource("11_d1ilt")
-OneJumpPlatformPresetScene = ExtResource("10_fdnlq")
-TimedPlatformPresetScene = ExtResource("11_jkdf5")
 
 [node name="ColorRect" type="ColorRect" parent="." groups=["Bullets", "Enemies", "Platforms"]]
 z_index = -1

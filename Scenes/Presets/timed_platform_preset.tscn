@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cg7g423gaj0vs"]
 
-[ext_resource type="PackedScene" uid="uid://jy5tfrdy5m72" path="res://Scenes/timed_platform.tscn" id="1_26vll"]
+[ext_resource type="PackedScene" uid="uid://jy5tfrdy5m72" path="res://Scenes/Platforms/timed_platform.tscn" id="1_26vll"]
 
 [node name="TimedPlatformPreset" type="Node2D"]
 

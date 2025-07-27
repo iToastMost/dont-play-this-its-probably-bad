@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -25,16 +26,7 @@ public partial class Main : Node
     public PackedScene SpringScene { get; set; }
 
     [Export]
-    public PackedScene VerticalPlatformScene { get; set; }
-
-    [Export]
     public PackedScene FlyingEnemyScene { get; set; }
-
-    [Export]
-    public PackedScene OneJumpPlatformPresetScene { get; set; }
-
-    [Export]
-    public PackedScene TimedPlatformPresetScene { get; set; }
 
 
     [Export]
@@ -55,13 +47,14 @@ public partial class Main : Node
     private float _score = 0f;
     private float _regularPlatformChance = 100;
     private float _enemySpawnChance = 1;
-    private float _springSpawnChance = 3;
+    private float _springSpawnChance = 50;
     private float _platformChanceIncrement = 2;
     private float deathHeightOffset = 550;
 
     private double _timeUntilPause = 0.35;
 
     private bool enemySpawned = false;
+
 
     public override void _Process(double delta)
     {
@@ -180,16 +173,16 @@ public partial class Main : Node
 
             if(roll2 == 0) 
             {
-                medium = VerticalPlatformScene.Instantiate<Node2D>();
+                medium = SceneManager.GetPreset("vertical").Instantiate<Node2D>();
             }
             else if (roll2 == 1) 
             {
-                medium = OneJumpPlatformPresetScene.Instantiate<Node2D>();
+                medium = SceneManager.GetPreset("one_jump").Instantiate<Node2D>();
 
             }
             else 
             {
-                medium = TimedPlatformPresetScene.Instantiate<Node2D>();
+                medium = SceneManager.GetPreset("timed").Instantiate<Node2D>();
             }
 
             medium.Position = new Vector2(0, _nextLevelY);
@@ -348,7 +341,10 @@ public partial class Main : Node
     private void SpawnSpring(Platform platform)
     {
         Spring spring = SpringScene.Instantiate<Spring>();
-        spring.GlobalPosition = platform.GetNode<Marker2D>("SpringSpawn").GlobalPosition;
+        var spawnLocation = platform.GetNode<PathFollow2D>("Path2D/SpringSpawnPath");
+        spawnLocation.ProgressRatio = GD.Randf();
+        Vector2 springSpawn = spawnLocation.GlobalPosition;
+        spring.GlobalPosition = springSpawn;
         AddChild(spring);
     }
 
