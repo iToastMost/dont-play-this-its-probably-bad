@@ -47,7 +47,7 @@ public partial class Main : Node
     private float _score = 0f;
     private float _regularPlatformChance = 100;
     private float _enemySpawnChance = 1;
-    private float _springSpawnChance = 50;
+    private float _springSpawnChance = 8;
     private float _platformChanceIncrement = 2;
     private float deathHeightOffset = 550;
 
@@ -241,6 +241,7 @@ public partial class Main : Node
                 Platform platform = PlatformScene.Instantiate<Platform>();
 
                 platform.GlobalPosition = spawnPos;
+                AddChild(platform);
 
                 if (roll <= _enemySpawnChance && _score > 2500 && enemySpawned == false) 
                 {
@@ -252,17 +253,22 @@ public partial class Main : Node
                 {
                     SpawnSpring(platform);
                 }
-                AddChild(platform);
-
                 
             }
             else
             {
+                int springRoll = GD.RandRange(0, 100);
+
                 MovingPlatform platform = MovingPlatformScene.Instantiate<MovingPlatform>();
 
                 platform.GlobalPosition = spawnPos;
 
                 AddChild(platform);
+
+                if (springRoll <= _springSpawnChance)
+                {
+                    SpawnSpring(platform);
+                }
             }
             
 
@@ -338,14 +344,14 @@ public partial class Main : Node
 
     }
 
-    private void SpawnSpring(Platform platform)
+    private void SpawnSpring(Node2D platform)
     {
         Spring spring = SpringScene.Instantiate<Spring>();
         var spawnLocation = platform.GetNode<PathFollow2D>("Path2D/SpringSpawnPath");
         spawnLocation.ProgressRatio = GD.Randf();
-        Vector2 springSpawn = spawnLocation.GlobalPosition;
-        spring.GlobalPosition = springSpawn;
-        AddChild(spring);
+        Vector2 springSpawn = spawnLocation.Position;
+        spring.Position = springSpawn;
+        platform.AddChild(spring);
     }
 
     private void UpdateScore(float score)
@@ -375,10 +381,10 @@ public partial class Main : Node
                   movingPlatform.QueueFree();
                }
 
-                //if(item is Spring spring) 
-                //{
-                  //  QueueFree();
-                //}
+                if(item is Spring spring) 
+                {
+                    QueueFree();
+                }
             }
         }
     }

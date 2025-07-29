@@ -13,4 +13,10 @@ public partial class Spring : Area2D
         GD.Print("Spring Freed");
     }
 
+    public void PlayAnimation() 
+    {
+        var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+        animatedSprite2D.Play();
+    }
 }

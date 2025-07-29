@@ -123,6 +123,7 @@ public partial class Player : CharacterBody2D
 			var parent = node.GetParent();
 			if (collision is Spring spring && Velocity.Y > 0)
 			{
+				spring?.PlayAnimation();
 				//GD.Print("Raycast hit: ", colission.GetType(), " - ", node.Name);
 				Bounce(bounceForce);
 			}

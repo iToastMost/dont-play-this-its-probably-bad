@@ -7,27 +7,31 @@ size = Vector2(72, 13)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cecly"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6ags"]
+[sub_resource type="Curve2D" id="Curve2D_bnyyd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 14, -5, 0, 0, 0, 0, 55.66, -5)
+}
+point_count = 2
 
-[node name="MovingPlatform" type="StaticBody2D"]
-collision_layer = 256
-collision_mask = 0
+[node name="MovingPlatform" type="AnimatableBody2D"]
+collision_layer = 258
 script = ExtResource("1_o6ags")
 offSet = Vector2(395, 0)
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(36, 6.5)
 shape = SubResource("RectangleShape2D_cecly")
 one_way_collision = true
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="AnimatableBody2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 modulate = Color(0.782, 0.0843689, 0.497453, 1)
 position = Vector2(35.75, 6)
 scale = Vector2(72.5, 14)
 mesh = SubResource("BoxMesh_cecly")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_o6ags")
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(24, 0)
+curve = SubResource("Curve2D_bnyyd")
+
+[node name="SpringSpawnPath" type="PathFollow2D" parent="Path2D"]
+position = Vector2(14, -5)

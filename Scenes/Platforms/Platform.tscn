@@ -9,9 +9,9 @@ size = Vector2(1, 1.03448)
 
 [sub_resource type="Curve2D" id="Curve2D_d7sl0"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -12, -9, 0, 0, 0, 0, 37, -9, 0, 0, 0, 0, 37, -9)
+"points": PackedVector2Array(0, 0, 0, 0, -12, -5, 0, 0, 0, 0, 37, -5)
 }
-point_count = 3
+point_count = 2
 
 [node name="Platform" type="CharacterBody2D" groups=["platforms"]]
 collision_layer = 2
@@ -41,4 +41,4 @@ position = Vector2(32, -6)
 curve = SubResource("Curve2D_d7sl0")
 
 [node name="SpringSpawnPath" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-12, -9)
+position = Vector2(-12, -5)

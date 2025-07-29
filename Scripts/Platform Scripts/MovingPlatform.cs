@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MovingPlatform : StaticBody2D
+public partial class MovingPlatform : AnimatableBody2D
 {
     [Export]
     private Vector2 offSet = new Vector2(405, 0);
@@ -15,59 +15,56 @@ public partial class MovingPlatform : StaticBody2D
     private Tween _initialTween;
     private Tween _loopingTween;
 
+    private float _time = 0f;
+
+    [Export]
+    private float SineSpeed = 1f;
+    private float SineAmplitude;
+
+    private float platformSpawnOffset = 205;
+
+    private Vector2 _StartPosition;
+
+    private float _tauOffset;
+
+    public override void _PhysicsProcess(double delta)
+    {
+        Move(delta);
+    }
+
     public override void _Ready()
     {
+        //tauOffset for picking a random point of the sine curve to make platforms seem randomly spawned
+        _tauOffset = GD.Randf() * Mathf.Tau;
+        //random platform speed
+        SineSpeed = (float)GD.RandRange(0.5, 1.0);
+        _StartPosition = GlobalPosition;
+
+        //checks if the platforms should start by moving left or right
+        int roll = GD.RandRange(0, 1);
+        if(roll == 0) 
+        {
+            //offset for platform to not move offscreen. This sets the amplitude to be the same as the spawn so it's symmetrical
+            _StartPosition.X = platformSpawnOffset;
+            SineAmplitude = platformSpawnOffset;
+        }
+        else 
+        {
+            //offset for platform to not move offscreen. This sets the amplitude to be the same as the spawn so it's symmetrical
+            _StartPosition.X = platformSpawnOffset;
+            SineAmplitude = -platformSpawnOffset;
+        }
         AddToGroup("Platforms");
-        offSet.Y = Position.Y;
-        onSet.Y = Position.Y;
-        StartTween();
-    }
-
-    private void StartTween()
-    {
-        InitialTween();
-    }
-
-    private void InitialTween() 
-    {
-        var body = GetNode<AnimatableBody2D>("AnimatableBody2D");
-        Vector2 start = body.GlobalPosition;
-        Vector2 end = offSet;
-
-        float fullDistance = offSet.DistanceTo(onSet);
-        float baseSpeed = fullDistance / duration;
-
-        float initialDistance = start.DistanceTo(end);
-        float initialDuration = initialDistance / baseSpeed;
-
-        _initialTween = GetTree().CreateTween().SetProcessMode(Tween.TweenProcessMode.Physics);
-
-
-        _initialTween.TweenProperty(body, "global_position", offSet, initialDuration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-
-        _initialTween.TweenCallback(Callable.From(() => StartLoopTween(body)));
-    }
-
-    private void StartLoopTween(AnimatableBody2D body)
-    {
-        _loopingTween = GetTree().CreateTween().SetProcessMode(Tween.TweenProcessMode.Physics);
-
-        _loopingTween.SetLoops().SetParallel(false);
-        _loopingTween.TweenProperty(body, "global_position", onSet, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
-        _loopingTween.TweenProperty(body, "global_position", offSet, duration / 2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);   
-    }
-
-    public void FreeMovingPlatform() 
-    {
-        _initialTween?.Kill();
-        _loopingTween?.Kill();
         
-        SetProcess(false);
     }
 
-    public override void _ExitTree()
+    //code for actually moving along the sine wave
+    private void Move(double delta)
     {
-        FreeMovingPlatform();
-    }
+        _time += (float)delta;
 
+        float xOffset = Mathf.Sin(_time * SineSpeed + _tauOffset) * SineAmplitude;
+
+        Position = _StartPosition + new Vector2(xOffset, 0);
+    }
 }

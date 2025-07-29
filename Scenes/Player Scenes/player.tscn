@@ -49,6 +49,7 @@ scale = Vector2(0.21875, 0.179167)
 texture = ExtResource("4_vgqql")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, -2)
 limit_left = 0
 limit_right = 480
 limit_bottom = 0
@@ -72,7 +73,7 @@ collision_layer = 0
 collision_mask = 4095
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnArea"]
-position = Vector2(-3, 957)
+position = Vector2(-3, 1237)
 shape = SubResource("RectangleShape2D_vgqql")
 
 [connection signal="body_entered" from="DespawnArea" to="." method="OnBodyEntered"]
