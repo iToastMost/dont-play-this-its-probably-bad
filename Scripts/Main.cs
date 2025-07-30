@@ -10,24 +10,6 @@ public partial class Main : Node
     [Export]
     public PackedScene PlatformScene { get; set; }
 
-    [Export]
-    public PackedScene EasyScene { get; set; }
-
-    [Export]
-    public PackedScene MediumScene { get; set; }
-
-    [Export]
-    public PackedScene MovingPlatformScene { get; set; }
-
-    [Export]
-    public PackedScene EnemyScene { get; set; }
-
-    [Export]
-    public PackedScene SpringScene { get; set; }
-
-    [Export]
-    public PackedScene FlyingEnemyScene { get; set; }
-
 
     [Export]
     private float _mediumScoreRequirment = 12500;
@@ -54,6 +36,7 @@ public partial class Main : Node
     private double _timeUntilPause = 0.35;
 
     private bool enemySpawned = false;
+
 
 
     public override void _Process(double delta)
@@ -113,8 +96,8 @@ public partial class Main : Node
         {
             levelToGo.QueueFree();       
         }
-        
-        Node2D easy = EasyScene.Instantiate<Easy>();
+
+        Node2D easy = SceneManager.GetPreset("easy").Instantiate<Node2D>();
        
         easy.Position = new Vector2(0, _nextLevelY);
 
@@ -159,7 +142,7 @@ public partial class Main : Node
         Node2D medium;
         if(roll < 85) 
         {
-            medium = MediumScene.Instantiate<Node2D>();
+            medium = SceneManager.GetPreset("medium").Instantiate<Node2D>();
 
             medium.Position = new Vector2(0, _nextLevelY);
 
@@ -238,7 +221,7 @@ public partial class Main : Node
             int roll = GD.RandRange(0, 100);
             if(roll <= _regularPlatformChance) 
             {
-                Platform platform = PlatformScene.Instantiate<Platform>();
+                Platform platform = SceneManager.GetPlatform("platform").Instantiate<Platform>();
 
                 platform.GlobalPosition = spawnPos;
                 AddChild(platform);
@@ -259,7 +242,7 @@ public partial class Main : Node
             {
                 int springRoll = GD.RandRange(0, 100);
 
-                MovingPlatform platform = MovingPlatformScene.Instantiate<MovingPlatform>();
+                MovingPlatform platform = SceneManager.GetPlatform("horizontal_platform").Instantiate<MovingPlatform>();
 
                 platform.GlobalPosition = spawnPos;
 
@@ -327,10 +310,11 @@ public partial class Main : Node
         player.gameOver = false;
     }
 
+
     private void SpawnEnemy(Platform platform) 
     
     {
-        Enemy enemy = EnemyScene.Instantiate<Enemy>();
+        Enemy enemy = SceneManager.GetEnemy("enemy").Instantiate<Enemy>();
         enemy.GlobalPosition = platform.GetNode<Marker2D>("EnemySpawn").GlobalPosition;
         AddChild(enemy);
         GD.Print("Enemy Spawned");
@@ -338,7 +322,7 @@ public partial class Main : Node
 
     private void SpawnFlyingEnemy(Area2D spawnAreaPosition) 
     {
-        FlyingEnemy flyingEnemy = FlyingEnemyScene.Instantiate<FlyingEnemy>();
+        FlyingEnemy flyingEnemy = SceneManager.GetEnemy("flying_enemy").Instantiate<FlyingEnemy>();
         flyingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 100);
         AddChild(flyingEnemy);
 
@@ -346,7 +330,7 @@ public partial class Main : Node
 
     private void SpawnSpring(Node2D platform)
     {
-        Spring spring = SpringScene.Instantiate<Spring>();
+        Spring spring = SceneManager.GetPowerup("spring").Instantiate<Spring>();
         var spawnLocation = platform.GetNode<PathFollow2D>("Path2D/SpringSpawnPath");
         spawnLocation.ProgressRatio = GD.Randf();
         Vector2 springSpawn = spawnLocation.Position;

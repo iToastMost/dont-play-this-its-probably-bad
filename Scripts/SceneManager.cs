@@ -9,11 +9,48 @@ public static class SceneManager
 		{"one_jump", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_platform_preset.tscn") },
         {"timed", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_platform_preset.tscn") },
         {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
+        {"easy", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/easy.tscn") },
+        {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") }
+    };
+
+    private static Dictionary<string, PackedScene> Platforms = new()
+    {
+        {"platform", ResourceLoader.Load<PackedScene>("res://Scenes/Platforms/Platform.tscn") },
+        {"one_jump_platform", ResourceLoader.Load<PackedScene>("res://Scenes/Platforms/one_jump_platform.tscn") },
+        {"vertical_platform", ResourceLoader.Load<PackedScene>("res://Scenes/Platforms/vertical_platform.tscn") },
+        {"timed_platform", ResourceLoader.Load<PackedScene>("res://Scenes/Platforms/timed_platform.tscn") },
+        {"horizontal_platform", ResourceLoader.Load<PackedScene>("res://Scenes/Platforms/movingPlatform.tscn")}
+    };
+
+    private static Dictionary<string, PackedScene> Enemies = new()
+    {
+        {"enemy", ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/enemy.tscn")},
+        {"flying_enemy", ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/flying_enemy.tscn")}
+    };
+
+    private static Dictionary<string, PackedScene> Powerups = new()
+    {
+        {"spring", ResourceLoader.Load<PackedScene>("res://Scenes/PowerUps/spring.tscn") }
     };
 
     public static PackedScene GetPreset(string key) 
     {
         return Presets.ContainsKey(key) ? Presets[key] : null;
+    }
+
+    public static PackedScene GetEnemy(string key) 
+    {
+        return Enemies.ContainsKey(key) ? Enemies[key] : null;
+    }
+
+    public static PackedScene GetPowerup(string key) 
+    {
+        return Powerups.ContainsKey(key) ? Powerups[key] : null;
+    }
+
+    public static PackedScene GetPlatform(string key) 
+    {
+        return Platforms.ContainsKey(key) ? Platforms[key] : null;
     }
 
 }
