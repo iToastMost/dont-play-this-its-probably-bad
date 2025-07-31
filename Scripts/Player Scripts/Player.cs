@@ -147,7 +147,13 @@ public partial class Player : CharacterBody2D
 				Bounce(JumpVelocity);
 			}
 
-		}
+            if (parent is FloatingEnemy floatingEnemy && Velocity.Y > 0)
+            {
+				floatingEnemy?.Hit();
+                Bounce(bounceOffEnemyForce);
+            }
+
+        }
 	}
 
 	private void Shoot()

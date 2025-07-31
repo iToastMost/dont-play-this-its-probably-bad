@@ -25,7 +25,8 @@ public static class SceneManager
     private static Dictionary<string, PackedScene> Enemies = new()
     {
         {"enemy", ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/enemy.tscn")},
-        {"flying_enemy", ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/flying_enemy.tscn")}
+        {"flying_enemy", ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/flying_enemy.tscn")},
+        {"floating_enemy", ResourceLoader.Load<PackedScene>("res://Scenes/Enemies/FloatingEnemy.tscn") }
     };
 
     private static Dictionary<string, PackedScene> Powerups = new()
@@ -51,6 +52,13 @@ public static class SceneManager
     public static PackedScene GetPlatform(string key) 
     {
         return Platforms.ContainsKey(key) ? Platforms[key] : null;
+    }
+
+    public static PackedScene GetRandomPreset() 
+    {
+        int key = GD.RandRange(0, Presets.Count);
+        
+        return null;
     }
 
 }

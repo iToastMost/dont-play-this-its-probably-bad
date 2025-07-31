@@ -50,6 +50,7 @@ public partial class FlyingEnemy : AnimatableBody2D
         if (area.IsInGroup("Bullets")) 
         {
             QueueFree();
+            area.QueueFree();
         }
     }
 

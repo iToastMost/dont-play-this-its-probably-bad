@@ -8,10 +8,6 @@ using System.Xml.Serialization;
 public partial class Main : Node
 {
     [Export]
-    public PackedScene PlatformScene { get; set; }
-
-
-    [Export]
     private float _mediumScoreRequirment = 12500;
 
     PackedScene platforms;
@@ -59,7 +55,6 @@ public partial class Main : Node
         
         player = GetNode<Player>("Player");
         var playerPosition = GetNode<Player>("Player").Position;
-        platforms = PlatformScene;
         camera = player.GetNode<Camera2D>("Camera2D");
 
         NewGame();
@@ -196,7 +191,15 @@ public partial class Main : Node
 
         if(roll >=80 && roll <= 100) 
         {
-            SpawnFlyingEnemy(spawnAreaPosition);
+            if (roll >= 90)
+            {
+                SpawnFlyingEnemy(spawnAreaPosition);
+            }
+            else 
+            {
+                SpawnFloatingEnemy(spawnAreaPosition);
+            }
+            
         }
         
 
@@ -328,6 +331,13 @@ public partial class Main : Node
 
     }
 
+    private void SpawnFloatingEnemy(Area2D spawnAreaPosition) 
+    {
+        FloatingEnemy floatingEnemy = SceneManager.GetEnemy("floating_enemy").Instantiate<FloatingEnemy>();
+        floatingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 200);
+        AddChild(floatingEnemy);
+    }
+
     private void SpawnSpring(Node2D platform)
     {
         Spring spring = SceneManager.GetPowerup("spring").Instantiate<Spring>();
@@ -367,7 +377,7 @@ public partial class Main : Node
 
                 if(item is Spring spring) 
                 {
-                    QueueFree();
+                    spring.QueueFree();
                 }
             }
         }
