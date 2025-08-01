@@ -7,7 +7,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_ka4py"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ie264"]
-size = Vector2(29, 12)
+size = Vector2(46, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_osvhu"]
 animations = [{
@@ -38,7 +38,6 @@ scale = Vector2(19, 12)
 mesh = SubResource("BoxMesh_ka4py")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_ie264")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -13,6 +13,7 @@ process_mode = 2
 script = ExtResource("1_e0onf")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 1080)
 offset_right = 480.0
 offset_bottom = 720.0
 color = Color(0.494118, 0.564706, 0.584314, 0.890196)

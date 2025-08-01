@@ -120,7 +120,7 @@ public partial class Player : CharacterBody2D
 			//GD.Print("Landing Check Hit: " + landingCheck.GetCollider());
 			var collision = landingCheck.GetCollider();
 			var node = collision as Node;
-			var parent = node.GetParent();
+			var parent = node?.GetParent();
 			if (collision is Spring spring && Velocity.Y > 0)
 			{
 				spring?.PlayAnimation();

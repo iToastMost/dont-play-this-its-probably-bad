@@ -10,6 +10,7 @@ radius = 31.0644
 radius = 33.0151
 
 [node name="Enemy" type="Node2D"]
+z_index = 1
 script = ExtResource("1_1f0kj")
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class SceneManager
 {
@@ -56,9 +57,16 @@ public static class SceneManager
 
     public static PackedScene GetRandomPreset() 
     {
-        int key = GD.RandRange(0, Presets.Count);
-        
-        return null;
+        //Find a workaround later for easy/medium scenes not spawning platforms. They may need their own dictionary
+        //int randomRange = GD.RandRange(0, Presets.Count - 1);
+
+        int randomRange = GD.RandRange(0, 2);
+        var keyArray = Presets.Keys.ToArray();
+        var randomKey = keyArray[randomRange];
+
+        GD.Print("Spawning: " + randomKey);
+
+        return Presets.ContainsKey(randomKey) ? Presets[randomKey] : null;
     }
 
 }

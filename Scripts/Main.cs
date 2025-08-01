@@ -12,7 +12,7 @@ public partial class Main : Node
 
     PackedScene platforms;
 
-    private float _nextLevelY = -720;
+    private float _nextLevelY = -1280;
     private Node2D levelToGo;
     private Node2D previousLevel;
     private Node2D currentLevel;
@@ -27,7 +27,10 @@ public partial class Main : Node
     private float _enemySpawnChance = 1;
     private float _springSpawnChance = 8;
     private float _platformChanceIncrement = 2;
-    private float deathHeightOffset = 550;
+    private float _deathHeightOffset = 550;
+    
+
+    private float _nextLevelOffset = 1280;
 
     private double _timeUntilPause = 0.35;
 
@@ -37,7 +40,7 @@ public partial class Main : Node
 
     public override void _Process(double delta)
     {
-        if ((-_topHeightReached - -player.Position.Y) > deathHeightOffset) 
+        if ((-_topHeightReached - -player.Position.Y) > _deathHeightOffset) 
         {
             GameOver();
         }
@@ -115,11 +118,13 @@ public partial class Main : Node
         currentLevel = easy;
 
         var spawnAreaPosition = GetNode<Area2D>("Area2D");
-        spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
+        spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY + 200));
 
 
         //player.deathHeight = _nextLevelY + deathHeightOffset;
-        _nextLevelY -= 720;
+        
+        //Moves the Area2D for spawning the next level by a screens length
+        _nextLevelY -= _nextLevelOffset;
         _regularPlatformChance -= _platformChanceIncrement;
         GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
 
@@ -137,6 +142,7 @@ public partial class Main : Node
         Node2D medium;
         if(roll < 85) 
         {
+            //Spawn standard medium difficulty scene
             medium = SceneManager.GetPreset("medium").Instantiate<Node2D>();
 
             medium.Position = new Vector2(0, _nextLevelY);
@@ -147,21 +153,8 @@ public partial class Main : Node
         }
         else 
         {
-            int roll2 = GD.RandRange(0, 2);
-
-            if(roll2 == 0) 
-            {
-                medium = SceneManager.GetPreset("vertical").Instantiate<Node2D>();
-            }
-            else if (roll2 == 1) 
-            {
-                medium = SceneManager.GetPreset("one_jump").Instantiate<Node2D>();
-
-            }
-            else 
-            {
-                medium = SceneManager.GetPreset("timed").Instantiate<Node2D>();
-            }
+            //Gets random preset scene
+            medium = SceneManager.GetRandomPreset().Instantiate<Node2D>();
 
             medium.Position = new Vector2(0, _nextLevelY);
 
@@ -187,7 +180,7 @@ public partial class Main : Node
         currentLevel = medium;
 
         var spawnAreaPosition = GetNode<Area2D>("Area2D");
-        spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY));
+        spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY + 200));
 
         if(roll >=80 && roll <= 100) 
         {
@@ -201,11 +194,13 @@ public partial class Main : Node
             }
             
         }
-        
+
 
         //player.deathHeight = _nextLevelY + deathHeightOffset;
 
-        _nextLevelY -= 720;
+
+        //Moves the Area2D for spawning the next level by a screens length
+        _nextLevelY -= _nextLevelOffset;
         _regularPlatformChance -= _platformChanceIncrement;
         GD.Print("Moving platform spawn chance is now: " + _regularPlatformChance.ToString());
     }
@@ -283,7 +278,7 @@ public partial class Main : Node
 
         FreeNodes();
         
-        _nextLevelY = -720;
+        _nextLevelY = -1280;
         _score = 0;
         _topHeightReached = 0;
         _regularPlatformChance = 100;
@@ -326,7 +321,7 @@ public partial class Main : Node
     private void SpawnFlyingEnemy(Area2D spawnAreaPosition) 
     {
         FlyingEnemy flyingEnemy = SceneManager.GetEnemy("flying_enemy").Instantiate<FlyingEnemy>();
-        flyingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 100);
+        flyingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 225);
         AddChild(flyingEnemy);
 
     }
@@ -334,7 +329,7 @@ public partial class Main : Node
     private void SpawnFloatingEnemy(Area2D spawnAreaPosition) 
     {
         FloatingEnemy floatingEnemy = SceneManager.GetEnemy("floating_enemy").Instantiate<FloatingEnemy>();
-        floatingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 200);
+        floatingEnemy.GlobalPosition = new Vector2(240, spawnAreaPosition.GlobalPosition.Y - 225);
         AddChild(floatingEnemy);
     }
 
