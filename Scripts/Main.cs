@@ -28,7 +28,7 @@ public partial class Main : Node
     private float _springSpawnChance = 8;
     private float _platformChanceIncrement = 2;
     private float _deathHeightOffset = 550;
-    
+    private float _jetpackSpawnChance = 1;
 
     private float _nextLevelOffset = 1280;
 
@@ -59,7 +59,6 @@ public partial class Main : Node
         player = GetNode<Player>("Player");
         var playerPosition = GetNode<Player>("Player").Position;
         camera = player.GetNode<Camera2D>("Camera2D");
-
         NewGame();
     }
     public async void NewGame()
@@ -140,7 +139,7 @@ public partial class Main : Node
         int roll = GD.RandRange(0, 100);
 
         Node2D medium;
-        if(roll < 85) 
+        if(roll < 20) 
         {
             //Spawn standard medium difficulty scene
             medium = SceneManager.GetPreset("medium").Instantiate<Node2D>();
@@ -217,6 +216,7 @@ public partial class Main : Node
             spawnPos.Y += _nextLevelY;
 
             int roll = GD.RandRange(0, 100);
+            int jetpackRoll = GD.RandRange(0, 200);
             if(roll <= _regularPlatformChance) 
             {
                 Platform platform = SceneManager.GetPlatform("platform").Instantiate<Platform>();
@@ -230,10 +230,16 @@ public partial class Main : Node
                     enemySpawned = true;
                 }
 
-                if(roll <= _springSpawnChance && roll >= _enemySpawnChance) 
+                if (jetpackRoll <= _jetpackSpawnChance)
+                {
+                    SpawnJetpack(platform);
+                }
+                else if(roll <= _springSpawnChance && roll >= _enemySpawnChance) 
                 {
                     SpawnSpring(platform);
                 }
+
+                
                 
             }
             else
@@ -341,6 +347,16 @@ public partial class Main : Node
         Vector2 springSpawn = spawnLocation.Position;
         spring.Position = springSpawn;
         platform.AddChild(spring);
+    }
+
+    private void SpawnJetpack(Node2D platform) 
+    {
+        Jetpack jetpack = SceneManager.GetPowerup("jetpack").Instantiate<Jetpack>();
+        var spawnLocation = platform.GetNode<PathFollow2D>("Path2D/SpringSpawnPath");
+        spawnLocation.ProgressRatio = GD.Randf();
+        Vector2 jetpackSpawn = spawnLocation.Position;
+        jetpack.Position = jetpackSpawn;
+        platform.AddChild(jetpack);
     }
 
     private void UpdateScore(float score)

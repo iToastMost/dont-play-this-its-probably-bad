@@ -25,6 +25,7 @@ public partial class Hud : CanvasLayer
         GetNode<Label>("StartGameMessage").Hide();
         GetNode<ColorRect>("ColorRect").Hide();
 		GetNode<Label>("HighScore").Hide();
+        Input.SetMouseMode(Input.MouseModeEnum.ConfinedHidden);
     }
 
 	public void ShowHud() 
@@ -34,6 +35,7 @@ public partial class Hud : CanvasLayer
         GetNode<Button>("StartButton").Show();
         GetNode<ColorRect>("ColorRect").Show();
 		GetNode<Label>("HighScore").Show();
+        Input.SetMouseMode(Input.MouseModeEnum.Visible);
     }
 
 	public void UpdateScore(float score)

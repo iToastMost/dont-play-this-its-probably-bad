@@ -15,11 +15,13 @@ _data = {
 point_count = 2
 
 [node name="MovingPlatform" type="AnimatableBody2D"]
+z_index = 1
 collision_layer = 258
 script = ExtResource("1_o6ags")
 offSet = Vector2(395, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 position = Vector2(33.5, 8)
 shape = SubResource("RectangleShape2D_cecly")
 one_way_collision = true
@@ -27,6 +29,7 @@ one_way_collision = true
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 visible = false
 modulate = Color(0.782, 0.0843689, 0.497453, 1)
+z_index = 1
 position = Vector2(35.75, 6)
 scale = Vector2(72.5, 14)
 mesh = SubResource("BoxMesh_cecly")
@@ -39,6 +42,7 @@ curve = SubResource("Curve2D_bnyyd")
 position = Vector2(14, -5)
 
 [node name="MovingPlatform" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(35, -3)
 scale = Vector2(0.6, 0.597)
 texture = ExtResource("2_q0lfk")

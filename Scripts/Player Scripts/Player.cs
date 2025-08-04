@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class Player : CharacterBody2D
 {
@@ -19,6 +20,7 @@ public partial class Player : CharacterBody2D
 	public float JumpVelocity = -550.0f;
 
 	public const float Speed = 300.0f;
+	private const float _jetpackSpeed = -600f;
 	public float deathHeight = 0;
 	public Vector2 ScreenSize;
 	private bool platformsFall;
@@ -27,13 +29,18 @@ public partial class Player : CharacterBody2D
 
 	private float clampAimLeft = -135f;
 	private float clampAimRight = -45f;
+	private float aimSpeed = 2f;
 
+	private bool jetPackAcquired = false;
 
 
 	private Vector2 _calculatedVelocity;
 	Node2D rotate;
 	MeshInstance2D bulletSpawn;
 	RayCast2D landingCheck;
+	Camera2D camera;
+	CollisionShape2D hitbox;
+	Player player;
 
 	public override void _Ready()
 	{
@@ -45,14 +52,32 @@ public partial class Player : CharacterBody2D
 		rotate = GetNode<Node2D>("Rotation");
 		bulletSpawn = rotate.GetNode<MeshInstance2D>("spawnBullet");
 		landingCheck = GetNode<RayCast2D>("LandingCheck");
+		camera = GetNode<Camera2D>("Camera2D");
+		hitbox = GetNode<CollisionShape2D>("Hitbox");
+		player = this;
 	}
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Input(InputEvent @event)
+    {
+        if(@event is InputEventMouseMotion eventMouseMotion) 
+		{
+			rotate.Rotate(eventMouseMotion.Relative.X * 0.005f);
+            rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, clampAimLeft, clampAimRight);
+
+        }
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
 
+		if (Input.IsActionJustPressed("escape")) 
+		{
+			GetTree().Quit();
+		}
+
 		// Add the gravity.
-		if (!IsOnFloor())
+		if (!IsOnFloor() && !jetPackAcquired)
 		{
 			velocity += GetGravity() * (float)delta;
 		}
@@ -75,18 +100,34 @@ public partial class Player : CharacterBody2D
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
 
-		if (Input.IsActionJustPressed("shoot"))
+		if (Input.IsActionJustPressed("shoot") && jetPackAcquired == false)
 		{
 			Shoot();
 		}
 
-		rotate.LookAt(GetGlobalMousePosition());
-		rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, clampAimLeft, clampAimRight);
+		if (jetPackAcquired) 
+		{
+			velocity.Y = -50000f * (float)delta;
+		}
 
-		_calculatedVelocity = velocity;
+		if(Input.IsActionPressed("aim_left")) 
+		{
+			rotate.Rotate(-aimSpeed * (float)delta);
+            rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, clampAimLeft, clampAimRight);
+        }
+        if (Input.IsActionPressed("aim_right"))
+        {
+            rotate.Rotate(aimSpeed * (float)delta);
+            rotate.RotationDegrees = Mathf.Clamp(rotate.RotationDegrees, clampAimLeft, clampAimRight);
+        }
+
+
+
+        _calculatedVelocity = velocity;
 		BounceCheck();
 
-		Velocity = _calculatedVelocity;
+
+        Velocity = _calculatedVelocity;
 		MoveAndSlide();
 
 		Position = new Vector2(
@@ -182,8 +223,38 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	public async void JetpackAcquired() 
+	{
+		jetPackAcquired = true;
+		camera.PositionSmoothingEnabled = false;
+		//hitbox.SetDeferred("disabled", true);
+		DisabledCollision();
+        await Task.Delay(TimeSpan.FromSeconds(5.0));
+		jetPackAcquired = false;
+		camera.PositionSmoothingEnabled = true;
+        await Task.Delay(TimeSpan.FromSeconds(1.0));
+        EnableCollision();
+    }
+
+	private void DisabledCollision() 
+	{
+        this.SetCollisionLayerValue(1, false);
+        this.SetCollisionMaskValue(4, false);
+        this.SetCollisionMaskValue(5, false);
+    }
+
+	private void EnableCollision() 
+	{
+        this.SetCollisionLayerValue(1, true);
+        this.SetCollisionMaskValue(4, true);
+        this.SetCollisionMaskValue(5, true);
+    }
 	public void Die()
 	{
-		EmitSignal(SignalName.GameOver);
+		if (!jetPackAcquired) 
+		{
+            EmitSignal(SignalName.GameOver);
+        }
+		
 	}
 }

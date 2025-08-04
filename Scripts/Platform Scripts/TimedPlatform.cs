@@ -34,14 +34,14 @@ public partial class TimedPlatform : StaticBody2D
         var body = GetNode<MeshInstance2D>("MeshInstance2D");
         tween = GetTree().CreateTween().SetProcessMode(Tween.TweenProcessMode.Physics);
 
-        var color = new Color(1f, 0f, 0f, 1f);
-        color.R = 255;
-        color.G = 0;
-        color.B = 0;
-        color.A = 255;
+        var redColor = new Color(1f, 0f, 0f, 1f);
+        redColor.R = 255;
+        redColor.G = 0;
+        redColor.B = 0;
+        redColor.A = 255;
 
         tween.SetLoops(1).SetParallel(false);
-        tween.TweenProperty(body, "modulate", color, duration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
+        tween.TweenProperty(body, "modulate", redColor, duration).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
     }
 
     public void OnScreenEntered() 

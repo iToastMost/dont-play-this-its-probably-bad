@@ -30,6 +30,8 @@ public partial class MovingPlatform : AnimatableBody2D
     public override void _PhysicsProcess(double delta)
     {
         Move(delta);
+        //GD.Print("Platform Y: ", GlobalPosition.Y);
+        //GD.Print("Platform Y: ", GlobalPosition.X);
     }
 
     public override void _Ready()
@@ -38,7 +40,7 @@ public partial class MovingPlatform : AnimatableBody2D
         _tauOffset = GD.Randf() * Mathf.Tau;
         //random platform speed
         SineSpeed = (float)GD.RandRange(0.5, 1.0);
-        _StartPosition = GlobalPosition;
+        _StartPosition = Position;
 
         //checks if the platforms should start by moving left or right
         int roll = GD.RandRange(0, 1);
@@ -55,7 +57,9 @@ public partial class MovingPlatform : AnimatableBody2D
             SineAmplitude = -platformSpawnOffset;
         }
         AddToGroup("Platforms");
-        
+        GD.Print("Platform Y: ", GlobalPosition.Y);
+        GD.Print("Platform X: ", GlobalPosition.X);
+
     }
 
     //code for actually moving along the sine wave

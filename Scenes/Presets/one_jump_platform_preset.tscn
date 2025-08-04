@@ -6,6 +6,7 @@
 [node name="OneJumpPlatformPreset" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(240, 640)
 texture = ExtResource("2_2ml0x")
 

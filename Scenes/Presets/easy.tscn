@@ -21,6 +21,7 @@ script = ExtResource("1_flpfm")
 PlatformScene = ExtResource("2_1444l")
 
 [node name="Background" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(240, 640)
 texture = ExtResource("3_i7afh")
 

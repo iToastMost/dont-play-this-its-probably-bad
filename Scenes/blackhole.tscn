@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5rrjewq6dlvy"]
+
+[ext_resource type="Script" uid="uid://blnq4nyrjybhk" path="res://Scripts/Blackhole.cs" id="1_dxehr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwk2u"]
+radius = 46.0109
+
+[sub_resource type="SphereMesh" id="SphereMesh_dxehr"]
+
+[node name="Blackhole" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_dxehr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gwk2u")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, 8.82149e-06)
+scale = Vector2(92.1043, 92)
+mesh = SubResource("SphereMesh_dxehr")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

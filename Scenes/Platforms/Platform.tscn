@@ -13,10 +13,12 @@ _data = {
 point_count = 2
 
 [node name="Platform" type="CharacterBody2D" groups=["platforms"]]
+z_index = 1
 collision_layer = 2
 script = ExtResource("1_d7sl0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 position = Vector2(15, 7.50001)
 scale = Vector2(71, 14.5)
 shape = SubResource("RectangleShape2D_rxw4n")

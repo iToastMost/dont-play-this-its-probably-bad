@@ -17,6 +17,7 @@ size = Vector2(2384, 1082)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
+collision_layer = 2147483649
 collision_mask = 97
 script = ExtResource("1_4flbx")
 BulletScene = ExtResource("2_6t5aa")
@@ -27,7 +28,7 @@ position = Vector2(7.15256e-07, 4.02331e-06)
 scale = Vector2(14, 15)
 mesh = SubResource("CapsuleMesh_4flbx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sh265")
 
 [node name="Gooseguy" type="Sprite2D" parent="."]

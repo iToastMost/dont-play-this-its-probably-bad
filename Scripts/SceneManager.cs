@@ -10,6 +10,8 @@ public static class SceneManager
 		{"one_jump", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_platform_preset.tscn") },
         {"timed", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_platform_preset.tscn") },
         {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
+        {"around_the_blackhole", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/AroundTheBlackhole.tscn") },
+        {"blackhole_weaving", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/blackhole_weaving.tscn") },
         {"easy", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/easy.tscn") },
         {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") }
     };
@@ -32,7 +34,8 @@ public static class SceneManager
 
     private static Dictionary<string, PackedScene> Powerups = new()
     {
-        {"spring", ResourceLoader.Load<PackedScene>("res://Scenes/PowerUps/spring.tscn") }
+        {"spring", ResourceLoader.Load<PackedScene>("res://Scenes/PowerUps/spring.tscn") },
+        {"jetpack", ResourceLoader.Load<PackedScene>("res://Scenes/PowerUps/jetpack.tscn") }
     };
 
     public static PackedScene GetPreset(string key) 
@@ -60,7 +63,7 @@ public static class SceneManager
         //Find a workaround later for easy/medium scenes not spawning platforms. They may need their own dictionary
         //int randomRange = GD.RandRange(0, Presets.Count - 1);
 
-        int randomRange = GD.RandRange(0, 2);
+        int randomRange = GD.RandRange(0, 4);
         var keyArray = Presets.Keys.ToArray();
         var randomKey = keyArray[randomRange];
 
