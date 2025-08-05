@@ -66,6 +66,9 @@ mesh = SubResource("BoxMesh_6bp64")
 position = Vector2(240, -7.5)
 shape = SubResource("RectangleShape2D_344ge")
 
+[node name="NextLevelSpawn" type="Marker2D" parent="."]
+position = Vector2(0, -1280)
+
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]
 [connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

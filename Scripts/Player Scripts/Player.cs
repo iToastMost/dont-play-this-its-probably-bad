@@ -19,7 +19,7 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public float JumpVelocity = -550.0f;
 
-	public const float Speed = 300.0f;
+	public const float Speed = 350.0f;
 	private const float _jetpackSpeed = -600f;
 	public float deathHeight = 0;
 	public Vector2 ScreenSize;

@@ -9,11 +9,12 @@ public static class SceneManager
 	{
 		{"one_jump", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_platform_preset.tscn") },
         {"timed", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_platform_preset.tscn") },
-        {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
         {"around_the_blackhole", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/AroundTheBlackhole.tscn") },
         {"blackhole_weaving", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/blackhole_weaving.tscn") },
+        {"spring_fling", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling.tscn") },
         {"easy", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/easy.tscn") },
-        {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") }
+        {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") },
+        {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
     };
 
     private static Dictionary<string, PackedScene> Platforms = new()

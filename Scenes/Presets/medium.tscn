@@ -149,3 +149,9 @@ curve = SubResource("Curve2D_tp4fa")
 [node name="SpawnPath14" type="PathFollow2D" parent="PlatformPaths/PlatformPath14"]
 position = Vector2(44, 38)
 rotation = -0.00802122
+
+[node name="BottomOfLevel" type="Marker2D" parent="."]
+position = Vector2(0, 1280)
+
+[node name="NextLevelSpawn" type="Marker2D" parent="."]
+position = Vector2(0, -1280)

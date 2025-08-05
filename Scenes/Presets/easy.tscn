@@ -229,7 +229,8 @@ curve = SubResource("Curve2D_pnkhx")
 [node name="SpawnPath27" type="PathFollow2D" parent="PlatformPaths/PlatformPath27"]
 position = Vector2(40, 35)
 
-[node name="TopOfLevel" type="Marker2D" parent="."]
-
 [node name="BottomOfLevel" type="Marker2D" parent="."]
-position = Vector2(0, 720)
+position = Vector2(0, 1280)
+
+[node name="NextLevelSpawn" type="Marker2D" parent="."]
+position = Vector2(0, -1280)
