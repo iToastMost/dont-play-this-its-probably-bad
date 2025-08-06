@@ -25,7 +25,7 @@ public partial class FloatingEnemy : AnimatableBody2D
 	public override void _Ready()
 	{
 		AddToGroup("Enemies");
-		_startPosition = GlobalPosition;
+		_startPosition = Position;
 		_area2D = GetNode<Area2D>("Area2D");
 		_tau = Mathf.Tau * 2;
 	}

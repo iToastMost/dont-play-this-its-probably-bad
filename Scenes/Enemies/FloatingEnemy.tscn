@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://3jkk8yjmfn7a" path="res://Art/Enemy.png" id="1_y1r0v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g7had"]
-radius = 32.0
+radius = 26.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y1r0v"]
-radius = 34.0147
+radius = 29.0
 
 [node name="FloatingEnemy" type="AnimatableBody2D"]
 collision_layer = 24

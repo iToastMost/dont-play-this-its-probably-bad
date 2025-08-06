@@ -229,7 +229,7 @@ public partial class Player : CharacterBody2D
 		camera.PositionSmoothingEnabled = false;
 		//hitbox.SetDeferred("disabled", true);
 		DisabledCollision();
-        await Task.Delay(TimeSpan.FromSeconds(5.0));
+        await Task.Delay(TimeSpan.FromSeconds(3.0));
 		jetPackAcquired = false;
 		camera.PositionSmoothingEnabled = true;
         await Task.Delay(TimeSpan.FromSeconds(1.0));
@@ -254,6 +254,7 @@ public partial class Player : CharacterBody2D
 		if (!jetPackAcquired) 
 		{
             EmitSignal(SignalName.GameOver);
+			_calculatedVelocity.Y = 0;
         }
 		
 	}

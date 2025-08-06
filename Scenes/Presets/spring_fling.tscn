@@ -12,25 +12,19 @@ position = Vector2(240, 640)
 texture = ExtResource("1_0trc8")
 
 [node name="Platform" parent="." instance=ExtResource("2_42610")]
-position = Vector2(50, 1248)
+position = Vector2(30, 1248)
 
 [node name="Spring" parent="." instance=ExtResource("3_3l6pt")]
-position = Vector2(76, 1239)
+position = Vector2(62, 1239)
 
 [node name="Platform2" parent="." instance=ExtResource("2_42610")]
-position = Vector2(405, 763)
+position = Vector2(416, 763)
 
 [node name="Spring2" parent="." instance=ExtResource("3_3l6pt")]
-position = Vector2(397, 757)
-
-[node name="Platform3" parent="." instance=ExtResource("2_42610")]
-position = Vector2(54, 439)
-
-[node name="Spring3" parent="." instance=ExtResource("3_3l6pt")]
-position = Vector2(91, 432)
+position = Vector2(408, 757)
 
 [node name="Platform4" parent="." instance=ExtResource("2_42610")]
-position = Vector2(31, 11)
+position = Vector2(30, 30)
 
 [node name="Spring4" parent="." instance=ExtResource("3_3l6pt")]
-position = Vector2(62, 6)
+position = Vector2(62, 23)

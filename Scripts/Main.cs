@@ -139,7 +139,7 @@ public partial class Main : Node
         int roll = GD.RandRange(0, 100);
 
         Node2D medium;
-        if(roll < 20) 
+        if(roll < 40) 
         {
             //Spawn standard medium difficulty scene
             medium = SceneManager.GetPreset("medium").Instantiate<Node2D>();

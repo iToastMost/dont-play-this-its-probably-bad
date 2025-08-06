@@ -20,107 +20,130 @@ color = Color(0.815686, 0.760784, 0.509804, 1)
 
 [node name="TimedPlatforms" type="Node" parent="."]
 
-[node name="TimedPlatform2" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(204, 557)
-timeRangeStart = 2.0
-timeRangeEnd = 2.0
-
 [node name="TimedPlatform" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(60, 641)
-timeRangeEnd = 8.0
+position = Vector2(104, 1228)
+timeRangeStart = 10.0
+
+[node name="TimedPlatform2" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(252, 1146)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform3" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(77, 498)
-timeRangeEnd = 8.0
+position = Vector2(130, 1058)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform4" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(360, 410)
-timeRangeStart = 2.0
-timeRangeEnd = 2.0
+position = Vector2(132, 957)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform5" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(95, 341)
-timeRangeStart = 4.0
-timeRangeEnd = 6.0
+position = Vector2(71, 865)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform6" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(253, 272)
-timeRangeEnd = 8.0
-
-[node name="TimedPlatform13" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(76, 741)
-timeRangeEnd = 8.0
-
-[node name="TimedPlatform14" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(108, 881)
-timeRangeEnd = 8.0
-
-[node name="TimedPlatform15" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(257, 1031)
+position = Vector2(157, 793)
 timeRangeStart = 10.0
-timeRangeEnd = 15.0
-
-[node name="TimedPlatform19" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(74, 1006)
-timeRangeStart = 10.0
-timeRangeEnd = 15.0
-
-[node name="TimedPlatform20" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(127, 1207)
-timeRangeStart = 10.0
-timeRangeEnd = 15.0
-
-[node name="TimedPlatform21" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(265, 1153)
-timeRangeStart = 10.0
-timeRangeEnd = 15.0
-
-[node name="TimedPlatform22" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(340, 1242)
-timeRangeStart = 10.0
-timeRangeEnd = 15.0
-
-[node name="TimedPlatform23" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(61, 1143)
-timeRangeStart = 10.0
-timeRangeEnd = 15.0
-
-[node name="TimedPlatform16" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(300, 885)
-timeRangeStart = 1.0
-timeRangeEnd = 2.0
-
-[node name="TimedPlatform17" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(350, 754)
-timeRangeStart = 2.0
-timeRangeEnd = 3.0
-
-[node name="TimedPlatform18" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(209, 787)
-timeRangeEnd = 8.0
 
 [node name="TimedPlatform7" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(94, 180)
-timeRangeStart = 4.0
-timeRangeEnd = 6.0
+position = Vector2(258, 697)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform8" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(319, 56)
-timeRangeStart = 8.0
+position = Vector2(361, 595)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform9" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(320, 665)
-timeRangeEnd = 7.0
+position = Vector2(215, 512)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform10" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(147, 605)
-timeRangeStart = 4.0
-timeRangeEnd = 6.0
+position = Vector2(74, 431)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform11" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(219, 411)
-timeRangeEnd = 8.0
+position = Vector2(130, 314)
+timeRangeStart = 10.0
 
 [node name="TimedPlatform12" parent="." instance=ExtResource("1_26vll")]
-position = Vector2(141, 85)
-timeRangeEnd = 6.0
+position = Vector2(199, 241)
+timeRangeStart = 10.0
+
+[node name="TimedPlatform13" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(84, 137)
+timeRangeStart = 10.0
+
+[node name="TimedPlatform14" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(204, 58)
+timeRangeStart = 10.0
+
+[node name="TimedPlatform15" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(31, 1140)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform16" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(328, 1245)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform17" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(374, 1153)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform18" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(266, 1077)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform19" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(149, 1009)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform20" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(10, 966)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform21" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(263, 919)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform22" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(343, 842)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform23" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(78, 741)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform24" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(113, 643)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform25" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(95, 524)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform26" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(391, 518)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform27" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(356, 404)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform28" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(243, 383)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform29" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(364, 246)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform30" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(66, 248)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform31" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(279, 130)
+timeRangeEnd = 5.0
+
+[node name="TimedPlatform32" parent="." instance=ExtResource("1_26vll")]
+position = Vector2(67, 44)
+timeRangeEnd = 5.0

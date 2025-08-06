@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://jy5tfrdy5m72"]
+[gd_scene load_steps=5 format=3 uid="uid://jy5tfrdy5m72"]
 
 [ext_resource type="Script" uid="uid://bufdwwtgx6hrg" path="res://Scripts/Platform Scripts/TimedPlatform.cs" id="1_go4lr"]
+[ext_resource type="Texture2D" uid="uid://bd23cclb6uxe8" path="res://Art/Platforms/platform.png" id="2_yrvnk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ej85"]
 size = Vector2(72, 13)
@@ -18,6 +19,7 @@ shape = SubResource("RectangleShape2D_7ej85")
 one_way_collision = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
 modulate = Color(0.184199, 0.489257, 0.548544, 1)
 position = Vector2(36, 6.5)
 scale = Vector2(72.5, 14)
@@ -29,5 +31,16 @@ one_shot = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[node name="StartTweenTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Platform" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(39, -4)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_yrvnk")
+
 [connection signal="timeout" from="Timer" to="." method="Timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="OnScreenEntered"]
+[connection signal="timeout" from="StartTweenTimer" to="." method="StartTween"]

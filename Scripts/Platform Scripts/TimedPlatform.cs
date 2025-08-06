@@ -13,15 +13,31 @@ public partial class TimedPlatform : StaticBody2D
     [Export]
     private double timeRangeEnd = 0;
 
+    Timer tweenStartTimer;
     Tween tween;
     public override void _Ready()
     {
         duration = GD.RandRange(timeRangeStart, timeRangeEnd);
         timer = GetNode<Timer>("Timer");
+        tweenStartTimer = GetNode<Timer>("StartTweenTimer");
         timerStarted = false;
         timer.WaitTime = duration;
+        
+        if(duration - 4 < 0) 
+        {
+            ColorTween(2.0);
+        }
+        else 
+        {
+           tweenStartTimer.WaitTime = duration - 4.0;
+        }
+       
 
-        ColorTween(duration);
+    }
+
+    public void StartTween() 
+    {
+        ColorTween(4.0);
     }
 
     public void Timeout() 
@@ -31,7 +47,7 @@ public partial class TimedPlatform : StaticBody2D
 
     private void ColorTween(double duration) 
     {
-        var body = GetNode<MeshInstance2D>("MeshInstance2D");
+        var body = GetNode<Sprite2D>("Platform");
         tween = GetTree().CreateTween().SetProcessMode(Tween.TweenProcessMode.Physics);
 
         var redColor = new Color(1f, 0f, 0f, 1f);
@@ -50,6 +66,7 @@ public partial class TimedPlatform : StaticBody2D
         {
             timer.Start();
             timerStarted = true;
+            tweenStartTimer.Start();
         }
         
     }
