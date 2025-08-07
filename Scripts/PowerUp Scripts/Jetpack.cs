@@ -18,6 +18,7 @@ public partial class Jetpack : Area2D
 		if(body is Player player) 
 		{
 			player.JetpackAcquired();
+			QueueFree();
 		}
 	}
 }

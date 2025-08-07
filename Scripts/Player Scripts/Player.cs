@@ -41,6 +41,7 @@ public partial class Player : CharacterBody2D
 	Camera2D camera;
 	CollisionShape2D hitbox;
 	Player player;
+	Sprite2D jetpackSprite;
 
 	public override void _Ready()
 	{
@@ -55,6 +56,7 @@ public partial class Player : CharacterBody2D
 		camera = GetNode<Camera2D>("Camera2D");
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
 		player = this;
+		jetpackSprite = GetNode<Sprite2D>("Jetpack");
 	}
 
     public override void _Input(InputEvent @event)
@@ -194,6 +196,12 @@ public partial class Player : CharacterBody2D
                 Bounce(bounceOffEnemyForce);
             }
 
+			if(parent is JitterPlatform jitterPlatform && Velocity.Y > 0) 
+			{
+				jitterPlatform?.MoveAllPlatforms();
+				Bounce(JumpVelocity);
+			}
+
         }
 	}
 
@@ -226,12 +234,14 @@ public partial class Player : CharacterBody2D
 	public async void JetpackAcquired() 
 	{
 		jetPackAcquired = true;
+		jetpackSprite.Visible = true;
 		camera.PositionSmoothingEnabled = false;
 		//hitbox.SetDeferred("disabled", true);
 		DisabledCollision();
         await Task.Delay(TimeSpan.FromSeconds(3.0));
 		jetPackAcquired = false;
 		camera.PositionSmoothingEnabled = true;
+		jetpackSprite.Visible = false;
         await Task.Delay(TimeSpan.FromSeconds(1.0));
         EnableCollision();
     }

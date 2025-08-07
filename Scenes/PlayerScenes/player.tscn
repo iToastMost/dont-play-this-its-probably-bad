@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=10 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Scripts/Player Scripts/Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/PlayerScenes/bullet.tscn" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://drhaim1g27ebn" path="res://Art/GooseGuy2.png" id="2_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://r236572qsn6e" path="res://Art/Jetpack.png" id="3_sn0nf"]
 [ext_resource type="Texture2D" uid="uid://djbc2hj13lgfc" path="res://Art/SillyReticle.png" id="4_vgqql"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
@@ -30,6 +31,13 @@ mesh = SubResource("CapsuleMesh_4flbx")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sh265")
+
+[node name="Jetpack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(13, -27)
+rotation = -0.846152
+scale = Vector2(0.258445, 0.238298)
+texture = ExtResource("3_sn0nf")
 
 [node name="Gooseguy" type="Sprite2D" parent="."]
 position = Vector2(2, 5)

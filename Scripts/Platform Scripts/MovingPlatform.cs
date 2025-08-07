@@ -18,7 +18,7 @@ public partial class MovingPlatform : AnimatableBody2D
     private float _time = 0f;
 
     [Export]
-    private float SineSpeed = 1f;
+    public float SineSpeed = 1f;
     private float SineAmplitude;
 
     private float platformSpawnOffset = 205;

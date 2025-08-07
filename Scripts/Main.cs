@@ -26,7 +26,7 @@ public partial class Main : Node
     private float _regularPlatformChance = 100;
     private float _enemySpawnChance = 1;
     private float _springSpawnChance = 8;
-    private float _platformChanceIncrement = 2;
+    private float _platformChanceIncrement = 3;
     private float _deathHeightOffset = 550;
     private float _jetpackSpawnChance = 1;
 
@@ -393,4 +393,5 @@ public partial class Main : Node
             }
         }
     }
+
 }
