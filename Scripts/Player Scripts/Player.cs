@@ -196,7 +196,7 @@ public partial class Player : CharacterBody2D
                 Bounce(bounceOffEnemyForce);
             }
 
-			if(parent is JitterPlatform jitterPlatform && Velocity.Y > 0) 
+			if(collision is JitterPlatform jitterPlatform && Velocity.Y > 0) 
 			{
 				jitterPlatform?.MoveAllPlatforms();
 				Bounce(JumpVelocity);

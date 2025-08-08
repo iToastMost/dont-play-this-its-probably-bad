@@ -13,6 +13,7 @@ public static class SceneManager
         {"blackhole_weaving", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/blackhole_weaving.tscn") },
         {"spring_fling", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling.tscn") },
         {"spring_fling_opposite", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling_opposite.tscn") },
+        {"jitter_platform_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/jitter_platform_preset.tscn") },
         {"timed_wall", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_wall_preset.tscn") },
         {"easy", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/easy.tscn") },
         {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") },
@@ -66,7 +67,7 @@ public static class SceneManager
         //Find a workaround later for easy/medium scenes not spawning platforms. They may need their own dictionary
         //int randomRange = GD.RandRange(0, Presets.Count - 1);
 
-        int randomRange = GD.RandRange(0, 5);
+        int randomRange = GD.RandRange(0, 6);
         var keyArray = Presets.Keys.ToArray();
         var randomKey = keyArray[randomRange];
 
