@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1vkr3nviexfu"]
+
+[ext_resource type="Texture2D" uid="uid://cku1tisf72vct" path="res://Art/background.png" id="1_2cgjo"]
+[ext_resource type="PackedScene" uid="uid://4bq6liff23vu" path="res://Scenes/Platforms/invisible_platform.tscn" id="2_epgqw"]
+
+[node name="InvisiblePlatformPreset" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(240, 640)
+texture = ExtResource("1_2cgjo")
+
+[node name="InvisiblePlatform" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(50, 1205)
+
+[node name="InvisiblePlatform2" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(174, 1104)
+
+[node name="InvisiblePlatform3" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(40, 1003)
+
+[node name="InvisiblePlatform4" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(177, 903)
+
+[node name="InvisiblePlatform5" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(334, 780)
+
+[node name="InvisiblePlatform6" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(152, 703)
+
+[node name="InvisiblePlatform7" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(28, 548)
+
+[node name="InvisiblePlatform8" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(204, 479)
+
+[node name="InvisiblePlatform9" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(354, 363)
+
+[node name="InvisiblePlatform10" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(256, 227)
+
+[node name="InvisiblePlatform11" parent="." instance=ExtResource("2_epgqw")]
+position = Vector2(361, 43)

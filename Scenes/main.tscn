@@ -15,7 +15,7 @@ size = Vector2(480, 15)
 
 [node name="Main" type="Node" groups=["Platforms", "levels"]]
 script = ExtResource("1_bo1nx")
-_mediumScoreRequirment = 0.0
+_mediumScoreRequirment = 15000.0
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
