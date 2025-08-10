@@ -5,6 +5,12 @@ using System.Linq;
 
 public static class SceneManager
 {
+    private static Dictionary<string, PackedScene> DifficultyPresets = new()
+    {
+        {"easy", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/easy.tscn") },
+        {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") },
+    };
+
 	private static Dictionary<string, PackedScene> Presets = new()
 	{
 		{"one_jump", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_platform_preset.tscn") },
@@ -14,10 +20,18 @@ public static class SceneManager
         {"spring_fling", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling.tscn") },
         {"spring_fling_opposite", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling_opposite.tscn") },
         {"jitter_platform_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/jitter_platform_preset.tscn") },
-        {"timed_wall", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_wall_preset.tscn") },
-        {"easy", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/easy.tscn") },
-        {"medium", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/medium.tscn") },
-        {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
+        {"invisible_platform_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/invisible_platform_preset.tscn") },
+        {"offscreen_jumping", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/off_screen_jumping_preset.tscn") },
+        {"skim_the_blackhole", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/skim_the_blackhole_preset.tscn") },
+        {"one_jump_and_jitter", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_and_jitter_preset.tscn") },
+        {"hard", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/hard.tscn") },
+        //{"timed_wall", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_wall_preset.tscn") },
+       // {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
+    };
+
+    private static Dictionary<string, PackedScene> HardPresets = new()
+    {
+        {"hard", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/hard.tscn") },
     };
 
     private static Dictionary<string, PackedScene> Platforms = new()
@@ -42,6 +56,11 @@ public static class SceneManager
         {"jetpack", ResourceLoader.Load<PackedScene>("res://Scenes/PowerUps/jetpack.tscn") }
     };
 
+
+    public static PackedScene GetDifficultyPreset(string key) 
+    {
+        return DifficultyPresets.ContainsKey(key) ? DifficultyPresets[key] : null; 
+    }
     public static PackedScene GetPreset(string key) 
     {
         return Presets.ContainsKey(key) ? Presets[key] : null;
@@ -64,16 +83,22 @@ public static class SceneManager
 
     public static PackedScene GetRandomPreset() 
     {
-        //Find a workaround later for easy/medium scenes not spawning platforms. They may need their own dictionary
-        //int randomRange = GD.RandRange(0, Presets.Count - 1);
-
-        int randomRange = GD.RandRange(0, 6);
+        int randomRange = GD.RandRange(0, Presets.Count - 1);
         var keyArray = Presets.Keys.ToArray();
         var randomKey = keyArray[randomRange];
 
         GD.Print("Spawning: " + randomKey);
 
         return Presets.ContainsKey(randomKey) ? Presets[randomKey] : null;
+    }
+
+    public static PackedScene GetRandomHardPreset() 
+    {
+        int randomRange = GD.RandRange(0, HardPresets.Count - 1);
+        var keyArray = HardPresets.Keys.ToArray();
+        var randomKey = keyArray[randomRange];
+
+        return HardPresets.ContainsKey(randomKey) ? HardPresets[randomKey] : null;
     }
 
 }

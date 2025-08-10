@@ -202,6 +202,12 @@ public partial class Player : CharacterBody2D
 				Bounce(JumpVelocity);
 			}
 
+			if(collision is InvisiblePlatform invisiblePlatform && Velocity.Y > 0) 
+			{
+				invisiblePlatform?.ShowNextPlatform();
+				Bounce(JumpVelocity);
+			}
+
         }
 	}
 

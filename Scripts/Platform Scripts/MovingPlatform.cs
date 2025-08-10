@@ -39,7 +39,10 @@ public partial class MovingPlatform : AnimatableBody2D
         //tauOffset for picking a random point of the sine curve to make platforms seem randomly spawned
         _tauOffset = GD.Randf() * Mathf.Tau;
         //random platform speed
-        SineSpeed = (float)GD.RandRange(0.5, 1.0);
+        if(SineSpeed <= 1) 
+        {
+            SineSpeed = (float)GD.RandRange(0.5, 1.0);
+        }
         _StartPosition = Position;
 
         //checks if the platforms should start by moving left or right

@@ -94,7 +94,7 @@ public partial class Main : Node
             levelToGo.QueueFree();       
         }
 
-        Node2D easy = SceneManager.GetPreset("easy").Instantiate<Node2D>();
+        Node2D easy = SceneManager.GetDifficultyPreset("easy").Instantiate<Node2D>();
        
         easy.Position = new Vector2(0, _nextLevelY);
 
@@ -142,7 +142,7 @@ public partial class Main : Node
         if(roll < 40) 
         {
             //Spawn standard medium difficulty scene
-            medium = SceneManager.GetPreset("medium").Instantiate<Node2D>();
+            medium = SceneManager.GetDifficultyPreset("medium").Instantiate<Node2D>();
 
             medium.Position = new Vector2(0, _nextLevelY);
 
