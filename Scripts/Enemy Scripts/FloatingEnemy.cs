@@ -21,6 +21,8 @@ public partial class FloatingEnemy : AnimatableBody2D
 
 	private Vector2 _startPosition;
 	private Area2D _area2D;
+
+	private AudioStreamPlayer2D _deathSound;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -28,6 +30,7 @@ public partial class FloatingEnemy : AnimatableBody2D
 		_startPosition = Position;
 		_area2D = GetNode<Area2D>("Area2D");
 		_tau = Mathf.Tau * 2;
+		_deathSound = GetNode<AudioStreamPlayer2D>("DeathSound");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,13 +55,22 @@ public partial class FloatingEnemy : AnimatableBody2D
 	{
 		if (area.IsInGroup("Bullets")) 
 		{
-			QueueFree();
+            PlayDeathSound();
+            QueueFree();
 			area.QueueFree();
 		}
 	}
 
+	private void PlayDeathSound() 
+	{
+		if (!_deathSound.Playing) 
+		{
+			_deathSound.Play();
+		}
+	}
 	public void Hit() 
 	{
-		QueueFree();
+        PlayDeathSound();
+        QueueFree();
 	}
 }

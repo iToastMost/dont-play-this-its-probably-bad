@@ -4,19 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://bd23cclb6uxe8" path="res://Art/Platforms/platform.png" id="2_yrvnk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ej85"]
-size = Vector2(72, 13)
+size = Vector2(101, 18)
 
 [sub_resource type="BoxMesh" id="BoxMesh_go4lr"]
 
 [node name="TimedPlatform" type="StaticBody2D"]
+collision_layer = 512
+collision_mask = 0
 script = ExtResource("1_go4lr")
 timeRangeStart = 5.0
 timeRangeEnd = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(36, 6.5)
+position = Vector2(37.5, 8)
 shape = SubResource("RectangleShape2D_7ej85")
-one_way_collision = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
 visible = false

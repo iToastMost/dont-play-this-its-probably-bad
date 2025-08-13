@@ -38,11 +38,14 @@ public partial class Player : CharacterBody2D
 	Node2D rotate;
 	MeshInstance2D bulletSpawn;
 	RayCast2D landingCheck;
+	RayCast2D landingCheck2;
+	RayCast2D landingCheck3;
 	Camera2D camera;
 	CollisionShape2D hitbox;
 	Player player;
 	Sprite2D jetpackSprite;
 	AudioStreamPlayer2D jumpSound;
+	AudioStreamPlayer2D shootSound;
 
 	public override void _Ready()
 	{
@@ -54,11 +57,14 @@ public partial class Player : CharacterBody2D
 		rotate = GetNode<Node2D>("Rotation");
 		bulletSpawn = rotate.GetNode<MeshInstance2D>("spawnBullet");
 		landingCheck = GetNode<RayCast2D>("LandingCheck");
-		camera = GetNode<Camera2D>("Camera2D");
+        landingCheck2 = GetNode<RayCast2D>("LandingCheck2");
+        landingCheck3 = GetNode<RayCast2D>("LandingCheck3");
+        camera = GetNode<Camera2D>("Camera2D");
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
 		player = this;
 		jetpackSprite = GetNode<Sprite2D>("Jetpack");
 		jumpSound = GetNode<AudioStreamPlayer2D>("JumpSound");
+		shootSound = GetNode<AudioStreamPlayer2D>("ShootSound");
 	}
 
     public override void _Input(InputEvent @event)
@@ -108,6 +114,7 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("shoot") && jetPackAcquired == false)
 		{
 			Shoot();
+			PlayShootSound();
 		}
 
 		if (jetPackAcquired) 
@@ -167,6 +174,13 @@ public partial class Player : CharacterBody2D
 			var collision = landingCheck.GetCollider();
 			var node = collision as Node;
 			var parent = node?.GetParent();
+
+			if ((collision is Platform || collision is MovingPlatform || collision is TimedPlatform) && Velocity.Y > 0) 
+			{
+				Bounce(JumpVelocity);
+                PlayJumpSound();
+            }
+
 			if (collision is Spring spring && Velocity.Y > 0)
 			{
 				spring?.PlayAnimation();
@@ -289,4 +303,9 @@ public partial class Player : CharacterBody2D
 		if (!jumpSound.Playing)
 			jumpSound.Play();
 	}
+
+    private void PlayShootSound()
+    {
+		shootSound.Play();
+    }
 }

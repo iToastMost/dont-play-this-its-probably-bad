@@ -4,18 +4,17 @@
 [ext_resource type="Script" uid="uid://blhq6ux7nwqel" path="res://Scripts/Platform Scripts/JitterPlatform.cs" id="1_eta1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1urm"]
-size = Vector2(72, 13)
+size = Vector2(96, 15)
 
 [node name="JitterPlatform" type="AnimatableBody2D"]
 z_index = 1
-collision_layer = 57
-collision_mask = 56
+collision_layer = 512
+collision_mask = 512
 script = ExtResource("1_eta1a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(36, 6.5)
+position = Vector2(37, 7.5)
 shape = SubResource("RectangleShape2D_q1urm")
-one_way_collision = true
 
 [node name="Platform" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 0, 1)

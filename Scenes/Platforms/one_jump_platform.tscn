@@ -4,17 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://df30hohevm1gg" path="res://Art/Platforms/one jump platform.png" id="2_57w06"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evbah"]
-size = Vector2(72, 13)
+size = Vector2(97, 20)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7n08u"]
 
 [node name="OneJumpPlatform" type="Area2D"]
-collision_layer = 32
-collision_mask = 32
+collision_layer = 512
+collision_mask = 0
 script = ExtResource("1_7n08u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(36, 6.5)
+position = Vector2(35.5, 10)
 shape = SubResource("RectangleShape2D_evbah")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]

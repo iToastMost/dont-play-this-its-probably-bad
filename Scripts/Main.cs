@@ -10,6 +10,9 @@ public partial class Main : Node
     [Export]
     private float _mediumScoreRequirment = 12500;
 
+    [Export]
+    private float _hardScoreRequirement = 25000;
+
     PackedScene platforms;
 
     private float _nextLevelY = -1280;
@@ -55,7 +58,6 @@ public partial class Main : Node
 
     public override void _Ready()
     {
-        
         player = GetNode<Player>("Player");
         var playerPosition = GetNode<Player>("Player").Position;
         camera = player.GetNode<Camera2D>("Camera2D");
@@ -152,19 +154,41 @@ public partial class Main : Node
         }
         else 
         {
-            //Gets random preset scene
-            medium = SceneManager.GetRandomPreset().Instantiate<Node2D>();
+            if (_score >= _hardScoreRequirement)
+            {
+                int hardRoll = GD.RandRange(0, 100);
 
-            medium.Position = new Vector2(0, _nextLevelY);
+                if (hardRoll > 70)
+                {
+                    medium = SceneManager.GetRandomHardPreset().Instantiate<Node2D>();
 
-            AddChild(medium);
+                    medium.Position = new Vector2(0, _nextLevelY);
 
+                    AddChild(medium);
+                }
+                else
+                {
+                    //Gets random preset scene
+                    medium = SceneManager.GetRandomPreset().Instantiate<Node2D>();
+
+                    medium.Position = new Vector2(0, _nextLevelY);
+
+                    AddChild(medium);
+                }
+            }
+            else 
+            {
+                //Gets random preset scene
+                medium = SceneManager.GetRandomPreset().Instantiate<Node2D>();
+
+                medium.Position = new Vector2(0, _nextLevelY);
+
+                AddChild(medium);
+            }
+              
         }
         
-
         //GD.Print("Level Spawned");
-
-        
 
         if (previousLevel != null)
         {
@@ -176,7 +200,10 @@ public partial class Main : Node
             previousLevel = currentLevel;
         }
 
+        
         currentLevel = medium;
+        
+        
 
         var spawnAreaPosition = GetNode<Area2D>("Area2D");
         spawnAreaPosition.CallDeferred("set_position", new Vector2(spawnAreaPosition.Position.X, _nextLevelY + 200));

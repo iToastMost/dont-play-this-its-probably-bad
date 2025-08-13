@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bd23cclb6uxe8" path="res://Art/Platforms/platform.png" id="2_jib6w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxw4n"]
-size = Vector2(1.21127, 1.17241)
+size = Vector2(1.46479, 1.17241)
 
 [sub_resource type="Curve2D" id="Curve2D_d7sl0"]
 _data = {
@@ -14,16 +14,15 @@ point_count = 2
 
 [node name="Platform" type="CharacterBody2D" groups=["platforms"]]
 z_index = 1
-collision_layer = 2
+collision_layer = 512
+collision_mask = 0
 script = ExtResource("1_d7sl0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 z_index = 1
-position = Vector2(15, 7.50001)
+position = Vector2(15, 7.50002)
 scale = Vector2(71, 14.5)
 shape = SubResource("RectangleShape2D_rxw4n")
-one_way_collision = true
 one_way_collision_margin = 6.0
 debug_color = Color(0.231303, 0.568843, 0.780141, 0.42)
 

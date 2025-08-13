@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=12 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Scripts/Player Scripts/Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/PlayerScenes/bullet.tscn" id="2_6t5aa"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://r236572qsn6e" path="res://Art/Jetpack.png" id="3_sn0nf"]
 [ext_resource type="Texture2D" uid="uid://djbc2hj13lgfc" path="res://Art/SillyReticle.png" id="4_vgqql"]
 [ext_resource type="AudioStream" uid="uid://df2fvk48glncq" path="res://Sounds/jump.wav" id="6_c45ss"]
+[ext_resource type="AudioStream" uid="uid://bqidkymkobjep" path="res://Sounds/ShootSound.wav" id="7_acd72"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
 
@@ -75,7 +76,21 @@ drag_bottom_margin = 1.0
 [node name="LandingCheck" type="RayCast2D" parent="."]
 position = Vector2(1, 0)
 target_position = Vector2(0, 25)
-collision_mask = 56
+collision_mask = 568
+collide_with_areas = true
+
+[node name="LandingCheck3" type="RayCast2D" parent="."]
+position = Vector2(6, 0)
+rotation = -0.541052
+target_position = Vector2(0, 25)
+collision_mask = 568
+collide_with_areas = true
+
+[node name="LandingCheck2" type="RayCast2D" parent="."]
+position = Vector2(-4, 1)
+rotation = 0.410152
+target_position = Vector2(0, 25)
+collision_mask = 568
 collide_with_areas = true
 
 [node name="DespawnArea" type="Area2D" parent="."]
@@ -89,6 +104,10 @@ shape = SubResource("RectangleShape2D_vgqql")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_c45ss")
-volume_db = -15.731
+volume_db = -22.299
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_acd72")
+volume_db = -13.745
 
 [connection signal="body_entered" from="DespawnArea" to="." method="OnBodyEntered"]

@@ -16,15 +16,13 @@ public static class SceneManager
 		{"one_jump", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_platform_preset.tscn") },
         {"timed", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_platform_preset.tscn") },
         {"around_the_blackhole", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/AroundTheBlackhole.tscn") },
-        {"blackhole_weaving", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/blackhole_weaving.tscn") },
         {"spring_fling", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling.tscn") },
         {"spring_fling_opposite", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/spring_fling_opposite.tscn") },
         {"jitter_platform_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/jitter_platform_preset.tscn") },
-        {"invisible_platform_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/invisible_platform_preset.tscn") },
         {"offscreen_jumping", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/off_screen_jumping_preset.tscn") },
         {"skim_the_blackhole", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/skim_the_blackhole_preset.tscn") },
         {"one_jump_and_jitter", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_and_jitter_preset.tscn") },
-        {"hard", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/hard.tscn") },
+        //{"hard", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/hard.tscn") },
         //{"timed_wall", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_wall_preset.tscn") },
        // {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },
     };
@@ -32,6 +30,8 @@ public static class SceneManager
     private static Dictionary<string, PackedScene> HardPresets = new()
     {
         {"hard", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/hard.tscn") },
+        {"blackhole_weaving", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/blackhole_weaving.tscn") },
+        {"invisible_platform_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/invisible_platform_preset.tscn") },
     };
 
     private static Dictionary<string, PackedScene> Platforms = new()
