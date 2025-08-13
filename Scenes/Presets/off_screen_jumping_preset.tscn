@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5w2w5l1qklce"]
+[gd_scene load_steps=6 format=3 uid="uid://2diyssvdpqqv"]
 
 [ext_resource type="Texture2D" uid="uid://cku1tisf72vct" path="res://Art/background.png" id="1_2kw3d"]
 [ext_resource type="PackedScene" uid="uid://c5rrjewq6dlvy" path="res://Scenes/blackhole.tscn" id="2_23lh8"]

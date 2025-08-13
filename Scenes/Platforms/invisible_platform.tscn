@@ -7,7 +7,6 @@
 size = Vector2(72, 13)
 
 [node name="InvisiblePlatform" type="StaticBody2D"]
-z_index = 1
 collision_layer = 57
 collision_mask = 57
 script = ExtResource("1_q1xbw")

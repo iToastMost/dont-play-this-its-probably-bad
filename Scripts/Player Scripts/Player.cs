@@ -42,6 +42,7 @@ public partial class Player : CharacterBody2D
 	CollisionShape2D hitbox;
 	Player player;
 	Sprite2D jetpackSprite;
+	AudioStreamPlayer2D jumpSound;
 
 	public override void _Ready()
 	{
@@ -57,6 +58,7 @@ public partial class Player : CharacterBody2D
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
 		player = this;
 		jetpackSprite = GetNode<Sprite2D>("Jetpack");
+		jumpSound = GetNode<AudioStreamPlayer2D>("JumpSound");
 	}
 
     public override void _Input(InputEvent @event)
@@ -88,6 +90,7 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
+			PlayJumpSound();
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -169,45 +172,51 @@ public partial class Player : CharacterBody2D
 				spring?.PlayAnimation();
 				//GD.Print("Raycast hit: ", colission.GetType(), " - ", node.Name);
 				Bounce(bounceForce);
-			}
+                PlayJumpSound();
+            }
 
 			if (parent is Enemy enemy && Velocity.Y > 0)
 			{
 				GD.Print("Raycast hit: ", collision.GetType());
 				enemy?.Hit();
 				Bounce(bounceOffEnemyForce);
-			}
+                PlayJumpSound();
+            }
 
 			if(parent is FlyingEnemy flying && Velocity.Y > 0) 
 			{
 				flying?.Hit();
 				Bounce(bounceOffEnemyForce);
-			}
+                PlayJumpSound();
+            }
 
 			if(collision is OneJumpPlatform oneJumpPlatform && Velocity.Y > 0) 
 			{
 				oneJumpPlatform.Hit();
 				Bounce(JumpVelocity);
-			}
+                PlayJumpSound();
+            }
 
             if (parent is FloatingEnemy floatingEnemy && Velocity.Y > 0)
             {
 				floatingEnemy?.Hit();
                 Bounce(bounceOffEnemyForce);
+                PlayJumpSound();
             }
 
 			if(collision is JitterPlatform jitterPlatform && Velocity.Y > 0) 
 			{
 				jitterPlatform?.MoveAllPlatforms();
 				Bounce(JumpVelocity);
-			}
+                PlayJumpSound();
+            }
 
 			if(collision is InvisiblePlatform invisiblePlatform && Velocity.Y > 0) 
 			{
 				invisiblePlatform?.ShowNextPlatform();
 				Bounce(JumpVelocity);
-			}
-
+                PlayJumpSound();
+            }
         }
 	}
 
@@ -273,5 +282,11 @@ public partial class Player : CharacterBody2D
 			_calculatedVelocity.Y = 0;
         }
 		
+	}
+
+	private void PlayJumpSound() 
+	{
+		if (!jumpSound.Playing)
+			jumpSound.Play();
 	}
 }

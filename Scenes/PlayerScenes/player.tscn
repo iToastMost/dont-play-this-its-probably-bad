@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=11 format=3 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Scripts/Player Scripts/Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/PlayerScenes/bullet.tscn" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://drhaim1g27ebn" path="res://Art/GooseGuy2.png" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://r236572qsn6e" path="res://Art/Jetpack.png" id="3_sn0nf"]
 [ext_resource type="Texture2D" uid="uid://djbc2hj13lgfc" path="res://Art/SillyReticle.png" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://df2fvk48glncq" path="res://Sounds/jump.wav" id="6_c45ss"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
 
@@ -85,5 +86,9 @@ collision_mask = 4095
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnArea"]
 position = Vector2(-3, 1237)
 shape = SubResource("RectangleShape2D_vgqql")
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_c45ss")
+volume_db = -15.731
 
 [connection signal="body_entered" from="DespawnArea" to="." method="OnBodyEntered"]
