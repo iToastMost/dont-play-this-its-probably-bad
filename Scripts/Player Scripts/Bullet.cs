@@ -43,6 +43,7 @@ public partial class Bullet : Area2D
         }
 		if(parent is FloatingEnemy floating) 
 		{
+			floating.Hit();
 			QueueFree();
 		}
 		GD.Print("Hit");

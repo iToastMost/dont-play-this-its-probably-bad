@@ -37,5 +37,10 @@ shape = SubResource("CircleShape2D_y1r0v")
 stream = ExtResource("3_4fs11")
 volume_db = -0.05
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.55
+one_shot = true
+
 [connection signal="area_entered" from="Area2D" to="." method="OnAreaEnter"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEnter"]
+[connection signal="timeout" from="DeathTimer" to="." method="DeathTimerTrigger"]
