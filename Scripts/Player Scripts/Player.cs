@@ -204,6 +204,13 @@ public partial class Player : CharacterBody2D
                 PlayJumpSound();
             }
 
+			if(parent is BigEnemy bigEnemy && Velocity.Y > 0) 
+			{ 
+				bigEnemy?.Hit();
+				Bounce(bounceOffEnemyForce);
+				PlayJumpSound();
+			}
+
 			if(collision is OneJumpPlatform oneJumpPlatform && Velocity.Y > 0) 
 			{
 				oneJumpPlatform.Hit();

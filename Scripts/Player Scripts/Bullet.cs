@@ -36,16 +36,6 @@ public partial class Bullet : Area2D
 			enemy.Hit();
 			QueueFree();
 		}
-		if(parent is FlyingEnemy flying) 
-		{
-			flying.Hit();
-            QueueFree();
-        }
-		if(parent is FloatingEnemy floating) 
-		{
-			floating.Hit();
-			QueueFree();
-		}
 		GD.Print("Hit");
 	}
 }

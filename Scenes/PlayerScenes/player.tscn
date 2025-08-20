@@ -104,10 +104,10 @@ shape = SubResource("RectangleShape2D_vgqql")
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_c45ss")
-volume_db = -22.299
+volume_db = -7.442
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_acd72")
-volume_db = -13.745
+volume_db = -4.29
 
 [connection signal="body_entered" from="DespawnArea" to="." method="OnBodyEntered"]
