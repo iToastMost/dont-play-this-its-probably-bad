@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dggbudueceljn"]
+[gd_scene load_steps=8 format=3 uid="uid://dggbudueceljn"]
 
 [ext_resource type="Script" uid="uid://c534t00lrkfjc" path="res://Scripts/Main.cs" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://bwoe8loj8ac78" path="res://Scenes/PlayerScenes/player.tscn" id="2_8gbba"]
 [ext_resource type="Texture2D" uid="uid://cku1tisf72vct" path="res://Art/background.png" id="2_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bfohhcfgqpxof" path="res://Scenes/hud.tscn" id="4_jjvhh"]
-[ext_resource type="PackedScene" uid="uid://jy5tfrdy5m72" path="res://Scenes/Platforms/timed_platform.tscn" id="5_kry3j"]
-[ext_resource type="PackedScene" uid="uid://b8sdit5l3qau4" path="res://Scenes/Platforms/one_jump_platform.tscn" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xkr"]
 size = Vector2(491, 26)
@@ -70,12 +68,6 @@ shape = SubResource("RectangleShape2D_344ge")
 
 [node name="NextLevelSpawn" type="Marker2D" parent="."]
 position = Vector2(0, -1280)
-
-[node name="TimedPlatform" parent="." instance=ExtResource("5_kry3j")]
-position = Vector2(93, -236)
-
-[node name="OneJumpPlatform" parent="." instance=ExtResource("6_21xkr")]
-position = Vector2(243, -282)
 
 [connection signal="GameOver" from="Player" to="." method="GameOver"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]
