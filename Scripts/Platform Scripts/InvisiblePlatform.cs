@@ -21,6 +21,7 @@ public partial class InvisiblePlatform : StaticBody2D
 
         if (_isVisible) 
         {
+            _opacity.Modulate = new Color(255, 255, 255);
             StartTween();
         }
         else 

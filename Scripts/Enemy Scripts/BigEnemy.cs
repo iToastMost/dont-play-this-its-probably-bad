@@ -4,7 +4,7 @@ using System;
 public partial class BigEnemy : AnimatableBody2D
 {
     [Export]
-    private int _health = 5;
+    private int _health = 3;
 
     public override void _Ready()
     {

@@ -22,6 +22,7 @@ public static class SceneManager
         {"offscreen_jumping", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/off_screen_jumping_preset.tscn") },
         {"skim_the_blackhole", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/skim_the_blackhole_preset.tscn") },
         {"one_jump_and_jitter", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/one_jump_and_jitter_preset.tscn") },
+        {"big_enemy_preset", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/big_enemy_preset.tscn") },
         //{"hard", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/hard.tscn") },
         //{"timed_wall", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/timed_wall_preset.tscn") },
        // {"vertical", ResourceLoader.Load<PackedScene>("res://Scenes/Presets/vertical_platform_preset.tscn") },

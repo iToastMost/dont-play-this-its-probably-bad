@@ -44,6 +44,7 @@ public partial class Player : CharacterBody2D
 	CollisionShape2D hitbox;
 	Player player;
 	Sprite2D jetpackSprite;
+	AnimatedSprite2D jetpackFlameAnimation;
 	AudioStreamPlayer2D jumpSound;
 	AudioStreamPlayer2D shootSound;
 
@@ -63,7 +64,8 @@ public partial class Player : CharacterBody2D
 		hitbox = GetNode<CollisionShape2D>("Hitbox");
 		player = this;
 		jetpackSprite = GetNode<Sprite2D>("Jetpack");
-		jumpSound = GetNode<AudioStreamPlayer2D>("JumpSound");
+		jetpackFlameAnimation = GetNode<AnimatedSprite2D>("FlameAnimation");
+        jumpSound = GetNode<AudioStreamPlayer2D>("JumpSound");
 		shootSound = GetNode<AudioStreamPlayer2D>("ShootSound");
 	}
 
@@ -271,6 +273,8 @@ public partial class Player : CharacterBody2D
 	{
 		jetPackAcquired = true;
 		jetpackSprite.Visible = true;
+		jetpackFlameAnimation.Visible = true;
+		jetpackFlameAnimation.Play();
 		camera.PositionSmoothingEnabled = false;
 		//hitbox.SetDeferred("disabled", true);
 		DisabledCollision();
@@ -278,6 +282,8 @@ public partial class Player : CharacterBody2D
 		jetPackAcquired = false;
 		camera.PositionSmoothingEnabled = true;
 		jetpackSprite.Visible = false;
+		jetpackFlameAnimation.Visible = false;
+		jetpackFlameAnimation.Stop();
         await Task.Delay(TimeSpan.FromSeconds(1.0));
         EnableCollision();
     }

@@ -1,17 +1,37 @@
-[gd_scene load_steps=13 format=4 uid="uid://bwoe8loj8ac78"]
+[gd_scene load_steps=17 format=4 uid="uid://bwoe8loj8ac78"]
 
 [ext_resource type="Script" uid="uid://b7vvw5mqkuopg" path="res://Scripts/Player Scripts/Player.cs" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://b32e4o6nvwfpe" path="res://Scenes/PlayerScenes/bullet.tscn" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://drhaim1g27ebn" path="res://Art/GooseGuy2.png" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://r236572qsn6e" path="res://Art/Jetpack.png" id="3_sn0nf"]
+[ext_resource type="Texture2D" uid="uid://xo6emjgs0hc7" path="res://Art/flame_1.png" id="4_m3tqg"]
 [ext_resource type="Texture2D" uid="uid://djbc2hj13lgfc" path="res://Art/SillyReticle.png" id="4_vgqql"]
+[ext_resource type="Texture2D" uid="uid://dtykd5rfky8e0" path="res://Art/flame_2.png" id="5_ow3yf"]
 [ext_resource type="AudioStream" uid="uid://df2fvk48glncq" path="res://Sounds/jump.wav" id="6_c45ss"]
+[ext_resource type="Texture2D" uid="uid://dcrcteydnklvk" path="res://Art/flame_3.png" id="6_j1pys"]
 [ext_resource type="AudioStream" uid="uid://bqidkymkobjep" path="res://Sounds/ShootSound.wav" id="7_acd72"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4flbx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 radius = 7.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nyhdo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_m3tqg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ow3yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j1pys")
+}],
+"loop": true,
+"name": &"flamer",
+"speed": 5.0
+}]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6t5aa"]
 
@@ -41,17 +61,27 @@ mesh = SubResource("CapsuleMesh_4flbx")
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sh265")
 
-[node name="Jetpack" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(13, -27)
-rotation = -0.846152
-scale = Vector2(0.258445, 0.238298)
-texture = ExtResource("3_sn0nf")
-
 [node name="Gooseguy" type="Sprite2D" parent="."]
 position = Vector2(2, 5)
 scale = Vector2(0.29296, 0.33945)
 texture = ExtResource("2_cvnsp")
+
+[node name="FlameAnimation" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(19, -22)
+rotation = -0.858872
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_nyhdo")
+animation = &"flamer"
+frame_progress = 0.167611
+speed_scale = 1.5
+
+[node name="Jetpack" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(14, -30)
+rotation = -0.846152
+scale = Vector2(0.3, 0.277)
+texture = ExtResource("3_sn0nf")
 
 [node name="Rotation" type="Node2D" parent="."]
 
@@ -119,6 +149,7 @@ volume_db = -4.29
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamWAV_acd72")
+volume_db = -13.137
 autoplay = true
 
 [connection signal="body_entered" from="DespawnArea" to="." method="OnBodyEntered"]

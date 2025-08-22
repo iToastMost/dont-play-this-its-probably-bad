@@ -15,11 +15,15 @@ public partial class TimedPlatform : StaticBody2D
 
     Timer tweenStartTimer;
     Tween tween;
+    AnimatedSprite2D animation;
+    Sprite2D platform;
     public override void _Ready()
     {
         duration = GD.RandRange(timeRangeStart, timeRangeEnd);
         timer = GetNode<Timer>("Timer");
         tweenStartTimer = GetNode<Timer>("StartTweenTimer");
+        animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        platform = GetNode<Sprite2D>("Platform");
         timerStarted = false;
         timer.WaitTime = duration;
         
@@ -42,6 +46,14 @@ public partial class TimedPlatform : StaticBody2D
 
     public void Timeout() 
     {
+        platform.Visible = false;
+        animation.Visible = true;
+        animation.Play();
+    }
+    
+    private void AnimationFinished() 
+    {
+        animation.QueueFree();
         QueueFree();
     }
 
