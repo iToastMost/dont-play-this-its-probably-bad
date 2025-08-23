@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddtappi8pn201"]
+[gd_scene load_steps=6 format=3 uid="uid://ddtappi8pn201"]
 
 [ext_resource type="Script" uid="uid://cbl047ud7xdgi" path="res://Scripts/Enemy Scripts/BigEnemy.cs" id="1_frldx"]
+[ext_resource type="AudioStream" uid="uid://jcut1u6ls1di" path="res://Sounds/EnemyDeath.wav" id="2_ug50p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iiawu"]
 size = Vector2(217, 33)
@@ -32,6 +33,10 @@ modulate = Color(0.950373, 0.516993, 0.366631, 1)
 position = Vector2(-1, -2.5)
 scale = Vector2(218, 35)
 mesh = SubResource("BoxMesh_iiawu")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ug50p")
+volume_db = -0.05
 
 [connection signal="area_entered" from="Area2D" to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://0woc4cr3khdd"]
+[gd_scene load_steps=6 format=3 uid="uid://0woc4cr3khdd"]
 
 [ext_resource type="Script" uid="uid://bghpvbsfxydtr" path="res://Scripts/Enemy Scripts/FlyingEnemy.cs" id="1_a0nct"]
 [ext_resource type="Texture2D" uid="uid://b32l7vfn0vvl3" path="res://Art/Alien Man UFO.png" id="2_gcrhg"]
+[ext_resource type="AudioStream" uid="uid://jcut1u6ls1di" path="res://Sounds/EnemyDeath.wav" id="3_nb6un"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
 radius = 31.0644
@@ -30,5 +31,14 @@ collision_mask = 145
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_1f0kj")
 
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nb6un")
+volume_db = -0.05
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.55
+one_shot = true
+
 [connection signal="area_entered" from="Area2D" to="." method="OnAreaEntered"]
 [connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
+[connection signal="timeout" from="DeathTimer" to="." method="DeathTimerTrigger"]

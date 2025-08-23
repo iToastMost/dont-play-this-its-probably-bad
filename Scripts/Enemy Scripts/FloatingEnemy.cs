@@ -22,11 +22,6 @@ public partial class FloatingEnemy : AnimatableBody2D
 	private Vector2 _startPosition;
 	private Area2D _area2D;
 
-	private AudioStreamPlayer2D _deathSound;
-	private Timer _deathTimer;
-	private Sprite2D _sprite;
-	private FloatingEnemy _floatingEnemy;
-	private Area2D _enemyArea;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -34,11 +29,7 @@ public partial class FloatingEnemy : AnimatableBody2D
 		_startPosition = Position;
 		_area2D = GetNode<Area2D>("Area2D");
 		_tau = Mathf.Tau * 2;
-		_deathSound = GetNode<AudioStreamPlayer2D>("DeathSound");
-		_deathTimer = GetNode<Timer>("DeathTimer");
-		_sprite = GetNode<Sprite2D>("Sprite2D");
-		_enemyArea = GetNode<Area2D>("Area2D");
-	}
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
@@ -62,35 +53,28 @@ public partial class FloatingEnemy : AnimatableBody2D
 	{
 		if (area.IsInGroup("Bullets"))
 		{
-			HideEnemy();
             PlayDeathSound();
 			area.QueueFree();
-			_deathTimer.Start();
 		}
 	}
 
 	private void PlayDeathSound()
 	{
-		if (!_deathSound.Playing)
-		{
-			_deathSound.Play();
-		}
+		var deathSound = GetNode<AudioStreamPlayer2D>("DeathSound");
+
+		RemoveChild(deathSound);
+		GetTree().Root.AddChild(deathSound);
+        deathSound.Position = GlobalPosition;
+
+        deathSound.Play();
+		deathSound.Finished += () => deathSound.QueueFree();
+
+			
+		QueueFree();
 	}
 	public void Hit()
 	{
-		HideEnemy();
 		PlayDeathSound();
-		_deathTimer.Start();
+		//QueueFree();
 	}
-
-	private void DeathTimerTrigger() 
-	{
-		QueueFree();
-	}
-
-	private void HideEnemy() 
-	{
-        _sprite.Visible = false;
-		_enemyArea.SetCollisionLayerValue(4, false);
-    }
 }

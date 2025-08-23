@@ -56,6 +56,7 @@ public partial class InvisiblePlatform : StaticBody2D
         {
             invisiblePlatform.ChangeVisibility();
         }
+        QueueFree();
     }
 
     private void ChangeVisibility() 

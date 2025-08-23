@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://w80afqggfx6s"]
+[gd_scene load_steps=6 format=3 uid="uid://w80afqggfx6s"]
 
 [ext_resource type="Script" uid="uid://sjc8agecrnda" path="res://Scripts/Enemy Scripts/Enemy.cs" id="1_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://35ntlsmcn5n2" path="res://Art/Alien Man.png" id="2_1f0kj"]
+[ext_resource type="AudioStream" uid="uid://jcut1u6ls1di" path="res://Sounds/EnemyDeath.wav" id="3_x1rqp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hghv2"]
 radius = 31.0644
@@ -34,4 +35,9 @@ z_index = 1
 z_index = 1
 shape = SubResource("CircleShape2D_1f0kj")
 
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_x1rqp")
+volume_db = -0.05
+
 [connection signal="body_entered" from="AnimatableBody2D/Area2D" to="." method="OnBodyEntered"]
+[connection signal="finished" from="DeathSound" to="." method="DeathTrigger"]

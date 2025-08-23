@@ -34,7 +34,21 @@ public partial class BigEnemy : AnimatableBody2D
 
         if(_health <= 0) 
         {
-            QueueFree();
+            PlayDeathSound();
         }
+    }
+
+    private void PlayDeathSound() 
+    {
+        var deathSound = GetNode<AudioStreamPlayer2D>("DeathSound");
+
+        RemoveChild(deathSound);
+        GetTree().Root.AddChild(deathSound);
+        deathSound.Position = GlobalPosition;
+
+        deathSound.Play();
+        deathSound.Finished += () => deathSound.QueueFree();
+
+        QueueFree();
     }
 }
